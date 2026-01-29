@@ -105,4 +105,238 @@
             border: 1px solid var(--border-color); 
             border-radius: 6px; 
             padding: 0; /* Padding handled inside content to allow header bar */
-            margin-bottom:
+            margin-bottom: 30px; 
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* "Window Header" for Cards */
+        .card-header {
+            background: #21262d;
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        .window-dots {
+            display: flex; gap: 6px; margin-right: 15px;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .card-header h2 { 
+            font-family: var(--font-mono); 
+            font-size: 1.1rem; 
+            margin: 0; 
+            color: var(--ethernet-blue);
+        }
+
+        .card-content { padding: 30px; }
+
+        h3 { color: var(--status-green); font-family: var(--font-mono); margin-top: 0; }
+
+        /* Timeline / Process */
+        .timeline { position: relative; padding: 10px 0; }
+        .step { 
+            margin-bottom: 30px; 
+            border-left: 2px dashed var(--border-color); 
+            padding-left: 30px; 
+            position: relative; 
+        }
+        .step::before { 
+            content: '\f233'; /* FontAwesome Server Icon */
+            font-family: "Font Awesome 6 Free"; 
+            font-weight: 900;
+            position: absolute; 
+            left: -16px; 
+            top: 0; 
+            background: var(--console-black);
+            color: var(--ethernet-blue);
+            padding: 5px 0;
+        }
+        .viz-img { width: 100%; border-radius: 4px; margin: 15px 0; border: 1px solid var(--border-color); opacity: 0.8; transition: opacity 0.3s; }
+        .viz-img:hover { opacity: 1; border-color: var(--ethernet-blue); }
+
+        /* Projects Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .project-item { 
+            background: rgba(255,255,255,0.03); 
+            padding: 20px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 4px;
+        }
+        .project-item:hover { border-color: var(--status-green); }
+        
+        .tag { 
+            font-family: var(--font-mono);
+            color: var(--status-green); 
+            font-size: 0.75rem; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Education List */
+        ul { list-style: none; padding: 0; }
+        ul li { 
+            font-family: var(--font-mono);
+            padding: 8px 0; 
+            border-bottom: 1px solid var(--border-color); 
+            color: var(--cli-text); 
+        }
+        ul li::before { content: "[OK] "; color: var(--status-green); margin-right: 10px; }
+
+        footer { background: var(--console-black); border-top: 1px solid var(--status-green); padding: 50px 0; text-align: center; margin-top: 50px; }
+        .contact-btn { 
+            font-family: var(--font-mono);
+            background: transparent; 
+            color: var(--ethernet-blue); 
+            padding: 10px 30px; 
+            border: 1px solid var(--ethernet-blue); 
+            border-radius: 4px; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin: 10px; 
+            transition: all 0.3s;
+        }
+        .contact-btn:hover { background: var(--ethernet-blue); color: var(--console-black); box-shadow: 0 0 15px var(--ethernet-blue); }
+
+        @media (max-width: 768px) { 
+            nav { flex-direction: column; } 
+            .nav-links { margin-top: 15px; }
+            .grid { grid-template-columns: 1fr; } 
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">root@deepak:~#</div>
+    <div class="nav-links">
+        <a href="#about">./about</a>
+        <a href="#vmware">./vmware-lifecycle</a>
+        <a href="#projects">./projects</a>
+        <a href="#edu">./education</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <img src="Deepak Photo.jpeg" alt="Deepak Parate" class="profile-pic">
+    <h1>Deepak Parate</h1>
+    <p>Technical Specialist-VMware | Technical Lead Administrator</p>
+    <div class="tech-stack">
+        VMware | Nutanix | HPC | HCI | GCP-ACE | Azure-104 | AWS
+    </div>
+    <p style="margin-top: 20px; font-family: var(--font-mono); color: var(--status-green);">
+        <i class="fas fa-circle fa-xs"></i> System Operational
+    </p>
+</section>
+
+<div class="container">
+
+    <section id="about" class="card">
+        <div class="card-header">
+            <div class="window-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+            <h2>profile_info.txt</h2>
+        </div>
+        <div class="card-content">
+            <p>I am passionate about pursuing a challenging career in the dynamic and innovative field of 
+            Server and Networking. My expertise spans Network and System Administration, NOC Administration, and onsite technical support involving both software and hardware solutions. I aim to leverage my technical skills to contribute effectively to organizational success.</p>
+        </div>
+    </section>
+
+    <section id="vmware" class="card">
+        <div class="card-header">
+            <div class="window-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+            <h2>/var/log/vmware_lifecycle</h2>
+        </div>
+        <div class="card-content">
+            <div class="timeline">
+                <div class="step">
+                    <h3>1. ESXi Hypervisor Deployment</h3>
+                    <p>The foundation of the SDDC. I handle bare-metal installations, configuring management networks via DCUI, and establishing local/shared storage access.</p>
+                    <img src="https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/vmware-cis/vsphere/8-0/vcenter-server-installation-and-setup-8-0/GUID-88C83829-1F76-4C5C-A77C-B8A6133B2677-high.png" alt="ESXi Setup Diagram" class="viz-img">
+                </div>
+
+                <div class="step">
+                    <h3>2. vCenter Server Appliance (vCSA)</h3>
+                    <p>Deploying the centralized management hub. Stage 1 involves the OVA deployment to the host, followed by Stage 2 which configures the SSO domain, NTP, and networking.</p>
+                    <img src="https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/vmware-cis/vsphere/8-0/vcenter-server-installation-and-setup-8-0/GUID-3B5B84A5-6453-487D-8910-6C9A983E822A-high.png" alt="vCenter Installation Flow" class="viz-img">
+                </div>
+
+                <div class="step">
+                    <h3>3. vRealize (Aria) Operations</h3>
+                    <p>Configuration of analytics and monitoring. I specialize in setting up vCenter adapters to track health metrics, capacity risk, and workload optimization.</p>
+                    <img src="https://blogs.vmware.com/management/files/2021/03/vrops-dash.png" alt="vROps Health Dashboard" class="viz-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="card">
+        <div class="card-header">
+            <div class="window-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+            <h2>executed_projects.sh</h2>
+        </div>
+        <div class="card-content">
+            <div class="grid">
+                <div class="project-item">
+                    <span class="tag">>> CLIENT: CENTRAL BANK</span>
+                    <h3>vSphere Optimization</h3>
+                    <p>Managed 150+ VMs in vSphere 7.0/8.0 environments. Reduced compute bottlenecks by 25% through advanced HA/DRS tuning.</p>
+                </div>
+                <div class="project-item">
+                    <span class="tag">>> CLIENT: CLOROX</span>
+                    <h3>Server Hardening</h3>
+                    <p>Administered 100+ Windows servers. Applied OS patches and GPO-based hardening measures in full compliance with CIS standards.</p>
+                </div>
+                <div class="project-item">
+                    <span class="tag">>> TYPE: SOP</span>
+                    <h3>vCenter 8 Lab Setup</h3>
+                    <p>Authored SOP for installing vCenter 8 on VMware Workstation, implementing a critical OVF descriptor workaround.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="edu" class="card">
+        <div class="card-header">
+            <div class="window-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+            <h2>sys_qualifications</h2>
+        </div>
+        <div class="card-content">
+            <div class="grid">
+                <div>
+                    <h3 style="color:var(--ethernet-blue)">Academics</h3>
+                    <p><strong>Master of Science (IT)</strong><br>Babasaheb Ambedkar University | 2023 - 2025</p>
+                    <p><strong>Bachelor of Commerce</strong><br>Gujarat University | 2011 - 2014</p>
+                </div>
+                <div>
+                    <h3 style="color:var(--ethernet-blue)">Certifications</h3>
+                    <ul>
+                        <li>VMware vSphere 8 (VCP-DCV 2024)</li>
+                        <li>Microsoft MCSA & MTA</li>    
+                        <li>Azure Administrator (AZ-104)</li>
+                        <li>Google Cloud Associate (GCP ACE)</li>
+                        <li>Google Cloud Professional Architect</li>
+                        <li>ITIL V4 Foundations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p style="font-family: var(--font-mono); color: var(--status-green);">Initialize Connection...</p>
+    <a href="mailto:deepakparate8929@gmail.com" class="contact-btn">EMAIL_ME</a>
+    <a href="https://www.linkedin.com/in/deepak-parate-15314062/" class="contact-btn">LINKEDIN_PROFILE</a>
+    <p><br><small style="color: #666;">Process completed. Exit code 0.</small></p>
+</footer>
+
+</body>
+</html>
