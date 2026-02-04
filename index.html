@@ -1,317 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepak Parate | Technical Lead Administrator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --vmware-blue: #005696;
+            --windows-blue: #0078d4;
+            --bg-body: #f4f7f9;
+            --text-main: #333;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; background-color: var(--bg-body); color: var(--text-main); }
+
+        /* Navigation */
+        nav { background: var(--white); padding: 1rem 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--vmware-blue); }
+        .nav-links a { text-decoration: none; color: var(--text-main); margin-left: 2rem; font-weight: 500; font-size: 0.95rem; }
+
+        /* Hero / Profile Section */
+        .hero { background: linear-gradient(135deg, #061e3d 0%, #005696 100%); color: var(--white); padding: 60px 10% 100px; text-align: center; }
+        .profile-pic { width: 180px; height: 180px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.2); object-fit: cover; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .hero h1 { margin: 10px 0; font-size: 2.8rem; letter-spacing: -1px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 10px auto; }
+
+        /* Containers */
+        .container { max-width: 1100px; margin: -50px auto 50px; padding: 0 20px; }
+        .card { background: var(--white); border-radius: 12px; padding: 40px; margin-bottom: 30px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        h2 { border-left: 5px solid var(--windows-blue); padding-left: 15px; color: var(--vmware-blue); margin-top: 0; }
+
+        /* Technical Visuals Chronological Order */
+        .timeline { position: relative; padding: 20px 0; }
+        .step { margin-bottom: 40px; border-left: 2px solid #ddd; padding-left: 30px; position: relative; }
+        .step::before { content: ''; position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--vmware-blue); }
+        .viz-img { width: 100%; border-radius: 8px; margin: 15px 0; border: 1px solid #eee; }
+
+        /* Projects & Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .project-item { background: #f9f9f9; padding: 25px; border-radius: 10px; border: 1px solid #eee; }
+        .tag { background: #e1f0ff; color: var(--vmware-blue); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; display: inline-block; }
+
+        footer { background: #1a1a1a; color: white; text-align: center; padding: 50px 0; }
+        .contact-btn { background: var(--windows-blue); color: white; padding: 12px 30px; border-radius: 5px; text-decoration: none; display: inline-block; margin: 10px; }
+
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Deepak Parate | Technical Lead Administrator</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Deepak Parate – VMware Technical Lead Administrator specializing in vSphere, Cloud, HCI, and Enterprise Infrastructure." />
-  <meta name="author" content="Deepak Parate" />
-
-  <!-- Fonts & Icons -->
+  <!-- SUGGESTION: Use a modern font for portfolio sites -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <style>
-    :root {
-      --vmware-blue: #005696;
-      --windows-blue: #0078d4;
-      --bg-body: #f4f7f9;
-      --text-main: #333;
-      --white: #ffffff;
-    }
-
-    * { box-sizing: border-box; scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-main);
-    }
-
-    /* Navigation */
-    nav {
-      background: var(--white);
-      padding: 1rem 10%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .logo a {
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 1.5rem;
-      color: var(--vmware-blue);
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-main);
-      margin-left: 2rem;
-      font-weight: 500;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--windows-blue);
-    }
-
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, #061e3d 0%, #005696 100%);
-      color: var(--white);
-      padding: 60px 10% 100px;
-      text-align: center;
-    }
-
-    .profile-pic {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 5px solid rgba(255,255,255,0.2);
-      object-fit: cover;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    .hero h1 {
-      margin: 10px 0;
-      font-size: 2.8rem;
-      letter-spacing: -1px;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 800px;
-      margin: 8px auto;
-    }
-
-    /* Layout */
-    .container {
-      max-width: 1100px;
-      margin: -50px auto 50px;
-      padding: 0 20px;
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-    }
-
-    h2 {
-      border-left: 5px solid var(--windows-blue);
-      padding-left: 15px;
-      color: var(--vmware-blue);
-      margin-top: 0;
-    }
-
-    /* Timeline */
-    .timeline {
-      padding: 20px 0;
-    }
-
-    .step {
-      margin-bottom: 40px;
-      border-left: 2px solid #ddd;
-      padding-left: 30px;
-      position: relative;
-    }
-
-    .step::before {
-      content: '';
-      position: absolute;
-      left: -9px;
-      top: 0;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--vmware-blue);
-    }
-
-    .viz-img {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 15px;
-      border: 1px solid #eee;
-    }
-
-    /* Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .project-item {
-      background: #f9f9f9;
-      padding: 25px;
-      border-radius: 10px;
-      border: 1px solid #eee;
-    }
-
-    .tag {
-      background: #e1f0ff;
-      color: var(--vmware-blue);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
-
-    /* Footer */
-    footer {
-      background: #1a1a1a;
-      color: white;
-      text-align: center;
-      padding: 50px 20px;
-    }
-
-    .contact-btn {
-      background: var(--windows-blue);
-      color: white;
-      padding: 12px 30px;
-      border-radius: 5px;
-      text-decoration: none;
-      display: inline-block;
-      margin: 10px;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      nav { padding: 1rem 5%; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <title>Navbar</title>
 </head>
-
 <body>
 
   <nav>
-    <div class="logo"><a href="#about">Deepak.</a></div>
+    <!-- SUGGESTION: Logo can be an <a> tag linking to #home -->
+    <div class="logo">Deepak.</div>
+
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#vmware">VMware</a>
+      <!-- SUGGESTION: Match href ids with section ids -->
+      <a href="#about">About Me</a>
+      <a href="#vmware">VMware Lifecycle</a>
       <a href="#projects">Projects</a>
       <a href="#edu">Education</a>
     </div>
   </nav>
 
-  <section class="hero">
-    <img src="deepak-parate.jpg" alt="Deepak Parate" class="profile-pic" width="180" height="180">
-    <h1>Deepak Parate</h1>
-    <p>Technical Specialist – VMware | Technical Lead Administrator</p>
-    <p><small>VMware | Nutanix | HPC | HCI | Azure | AWS | GCP</small></p>
-    <p><small>📞 +91 8866418929</small></p>
-  </section>
+</body>
+</html>
 
-  <main class="container">
+
+<section class="hero">
+    <img src="Deepak Photo.jpeg" alt="Deepak Parate" class="profile-pic">
+    <h1>Deepak Parate</h1>
+    <p>Technical Specialist-VMware | Technical Lead Administrator</p>
+    <p><small>| VMware | Nutanix | HPC | HCI | GCP-ACE | Google-PCA | Azure-104 | AWS | Gsuite Admin</small></p>
+    <p><small>+91-8866418929</small></p>	
+</section>
+
+<div class="container">
 
     <section id="about" class="card">
-      <h2>Professional Profile</h2>
-      <p>
-        I am passionate about building and managing enterprise-grade server and networking infrastructure.
-        My expertise spans VMware virtualization, system administration, NOC operations, and onsite technical
-        support. I focus on reliability, performance optimization, and continuous learning in modern cloud
-        and hybrid environments.
-      </p>
+        <h2>Professional Profile</h2>
+        <p>I am passionate about pursuing a challenging career in the dynamic and innovative field of 
+Server and Networking, with a strong commitment to continuous learning and professional growth. My Expertise spans Network and System Administration, NOC Administration, and onsite technical support involving both software and hardware solutions. I aim to leverage my technical skills and problem-solving abilities to contribute effectively to organizational success while expanding my knowledge in cutting-edge networking technologies.</p>
     </section>
 
     <section id="vmware" class="card">
-      <h2>VMware Administration Lifecycle</h2>
+        <h2>VMware Administration Lifecycle</h2>
+        <div class="timeline">
+            
+            <div class="step">
+                <h3>1. ESXi Hypervisor Deployment</h3>
+                <p>The foundation of the SDDC. I handle bare-metal installations, configuring management networks via DCUI, and establishing local/shared storage access.</p>
+                <img src="https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/vmware-cis/vsphere/8-0/vcenter-server-installation-and-setup-8-0/GUID-88C83829-1F76-4C5C-A77C-B8A6133B2677-high.png" alt="ESXi Setup Diagram" class="viz-img">
+            </div>
 
-      <div class="timeline">
-        <article class="step">
-          <h3>1. ESXi Hypervisor Deployment</h3>
-          <p>Bare-metal installation, DCUI network configuration, and storage integration.</p>
-          <img class="viz-img" src="https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/vmware-cis/vsphere/8-0/vcenter-server-installation-and-setup-8-0/GUID-88C83829-1F76-4C5C-A77C-B8A6133B2677-high.png" alt="ESXi Deployment">
-        </article>
+            <div class="step">
+                <h3>2. vCenter Server Appliance (vCSA) Stage 1 & 2</h3>
+                <p>Deploying the centralized management hub. Stage 1 involves the OVA deployment to the host, followed by Stage 2 which configures the SSO domain, NTP, and networking.</p>
+                <img src="https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/vmware-cis/vsphere/8-0/vcenter-server-installation-and-setup-8-0/GUID-3B5B84A5-6453-487D-8910-6C9A983E822A-high.png" alt="vCenter Installation Flow" class="viz-img">
+            </div>
 
-        <article class="step">
-          <h3>2. vCenter Server Appliance</h3>
-          <p>Stage 1 OVA deployment followed by SSO, NTP, and network configuration.</p>
-          <img class="viz-img" src="https://techdocs.broadcom.com/content/dam/broadcom/techdocs/us/en/vmware-cis/vsphere/8-0/vcenter-server-installation-and-setup-8-0/GUID-3B5B84A5-6453-487D-8910-6C9A983E822A-high.png" alt="vCenter Installation">
-        </article>
+            <div class="step">
+                <h3>3. vRealize (Aria) Operations Implementation</h3>
+                <p>Configuration of analytics and monitoring. I specialize in setting up vCenter adapters to track health metrics, capacity risk, and workload optimization.</p>
+                <img src="https://blogs.vmware.com/management/files/2021/03/vrops-dash.png" alt="vROps Health Dashboard" class="viz-img">
+            </div>
 
-        <article class="step">
-          <h3>3. vRealize / Aria Operations</h3>
-          <p>Health monitoring, capacity planning, and workload optimization.</p>
-          <img class="viz-img" src="https://blogs.vmware.com/management/files/2021/03/vrops-dash.png" alt="vROps Dashboard">
-        </article>
-      </div>
+        </div>
     </section>
 
     <section id="projects" class="card">
-      <h2>Project Portfolio</h2>
-      <div class="grid">
-        <div class="project-item">
-          <span class="tag">Central Bank of India</span>
-          <h3>vSphere Infrastructure Optimization</h3>
-          <p>Managed 150+ VMs and improved performance by 25% using HA/DRS tuning.</p>
+        <h2>Project Portfolio</h2>
+        <div class="grid">
+            <div class="project-item">
+                <span class="tag">Central Bank of India</span>
+                <h3>vSphere Infrastructure Optimization</h3>
+                <p>Managed 150+ VMs in vSphere 7.0/8.0 environments, reducing compute bottlenecks by 25% through advanced HA/DRS tuning.</p>
+            </div>
+            <div class="project-item">
+                <span class="tag">Clorox</span>
+                <h3>Windows Server Hardening</h3>
+                <p>Administered 100+ Windows servers, applying OS patches and GPO-based hardening measures in full compliance with CIS standards.</p>
+            </div>
+            <div class="project-item">
+                <span class="tag">Documentation</span>
+                <h3>vCenter 8 Workstation SOP</h3>
+                <p>Authored a comprehensive Standard Operating Procedure for installing vCenter 8 on VMware Workstation, implementing a critical OVF descriptor workaround for lab environments.</p>
+            </div>
         </div>
-
-        <div class="project-item">
-          <span class="tag">Clorox</span>
-          <h3>Windows Server Hardening</h3>
-          <p>Implemented CIS-compliant patching and GPO-based security hardening.</p>
-        </div>
-
-        <div class="project-item">
-          <span class="tag">Documentation</span>
-          <h3>vCenter 8 SOP</h3>
-          <p>Authored workstation-based vCenter 8 deployment SOP for lab environments.</p>
-        </div>
-      </div>
     </section>
 
     <section id="edu" class="card">
-      <h2>Education & Certifications</h2>
-      <div class="grid">
-        <div>
-          <h3>Education</h3>
-          <p><strong>MSc IT</strong> – BAOU (2023–2025)</p>
-          <p><strong>B.Com</strong> – Gujarat University (2011–2014)</p>
+        <h2>Education & Credentials</h2>
+        <div class="grid">
+            <div>
+                <h3>Academic Background</h3>
+                <p><strong>Master of Science - Information Technology (MSCIT)</strong><br>Babasaheb Ambedkar University (BAOU) | 2023 - 2025</p>
+                <p><strong>Bachelor of Commerce</strong><br>Gujarat University | 2011 - 2014</p>
+            </div>
+            <div>
+                <h3>Key Certifications</h3>
+                <ul>
+		    <li>VMware vSphere 8 Administration (VCP-DCV 2024)</li>
+		    <li>Microsoft Certified Solutions Associate (MCSA)</li>	
+		    <li>Microsoft Windows Server Administrator Fundamentals (MTA)</li>	
+		    <li>Microsoft Certified Professional (MCPS)</li>
+                    <li>Azure Administrator Associate (AZ-104)</li>
+                    <li>Google Cloud - Associate Cloud Engineer (GCP ACE)</li>
+		    <li>Google Cloud - Professional Cloud Architect (GCP PCA)</li>
+                    <li>ITIL V4 Foundations</li>
+                </ul>
+            </div>
         </div>
-        <div>
-          <h3>Certifications</h3>
-          <ul>
-            <li>VMware VCP-DCV 2024</li>
-            <li>Azure Administrator (AZ-104)</li>
-            <li>Google Cloud ACE & PCA</li>
-            <li>MCSA, MTA, MCPS</li>
-            <li>ITIL v4 Foundations</li>
-          </ul>
-        </div>
-      </div>
     </section>
 
-  </main>
+</div>
 
-  <footer>
-    <h2>Contact Deepak Parate</h2>
-    <p>Email: deepakparate8929@gmail.com | Mobile: +91 8866418929</p>
-    <a class="contact-btn" href="https://www.linkedin.com/in/deepak-parate-15314062/">
-      <i class="fab fa-linkedin"></i> LinkedIn
-    </a>
-    <p><small>&copy; <span id="year"></span> Deepak Parate</small></p>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<footer>
+    <h2>Contact 
+	Deepak Parate</h2>
+    <p>Mobile: +91 8866418929 | Email: deepakparate8929@gmail.com</p>
+    <a href="https://www.linkedin.com/in/deepak-parate-15314062/" class="contact-btn"><i class="fab fa-linkedin"></i> LinkedIn Profile</a>
+    <p><br><small>&copy; 2026 Deepak Parate. Built for Professional Showcase.</small></p>
+</footer>
 
 </body>
 </html>
