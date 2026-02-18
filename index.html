@@ -3,239 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hybrid Cloud Engineer | Expressive Portfolio</title>
-
+<title>Anudeep | Hybrid Cloud Architect</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-/* ===============================
-   MATERIAL 3 EXPRESSIVE THEME
-================================= */
+/* ===========================
+   MATERIAL 3 ENTERPRISE THEME
+=========================== */
 
-:root {
-    --primary: #7c3aed;
-    --primary-dark: #5b21b6;
-    --accent: #22d3ee;
-    --accent-warm: #f472b6;
-    --accent-green: #34d399;
-    --bg-dark: #0f0f1b;
-    --bg-card: #1a1a2e;
-    --bg-elevated: #24243e;
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #64748b;
-    --border: rgba(255,255,255,0.08);
+:root{
+--primary:#7c3aed;
+--accent:#22d3ee;
+--accent-warm:#f472b6;
+--accent-green:#34d399;
+--bg-dark:#0f0f1b;
+--bg-light:#f4f6fb;
+--bg-card:#1a1a2e;
+--bg-elevated:#24243e;
+--text-primary:#f8fafc;
+--text-secondary:#cbd5e1;
+--border:rgba(255,255,255,0.08);
 }
 
-/* Reset */
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
+body.light{
+--bg-dark:#f4f6fb;
+--bg-card:#ffffff;
+--bg-elevated:#ffffff;
+--text-primary:#111827;
+--text-secondary:#4b5563;
+background:var(--bg-dark);
 }
 
-body {
-    background: radial-gradient(circle at 20% 30%, #7c3aed22, transparent 40%),
-                radial-gradient(circle at 80% 70%, #22d3ee22, transparent 40%),
-                radial-gradient(circle at 50% 50%, #f472b622, transparent 50%),
-                var(--bg-dark);
-    color: var(--text-primary);
-    overflow-x: hidden;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+
+body{
+background:
+radial-gradient(circle at 20% 30%,#7c3aed22,transparent 40%),
+radial-gradient(circle at 80% 70%,#22d3ee22,transparent 40%),
+var(--bg-dark);
+color:var(--text-primary);
+overflow-x:hidden;
+transition:0.4s ease;
 }
 
-/* Aurora animated layer */
-body::before {
-    content: "";
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    background: conic-gradient(
-        from 0deg,
-        #7c3aed33,
-        #22d3ee33,
-        #34d39933,
-        #f472b633,
-        #7c3aed33
-    );
-    animation: rotateBg 25s linear infinite;
-    z-index: -2;
+/* Aurora */
+body::before{
+content:"";
+position:fixed;
+width:200%;height:200%;
+top:-50%;left:-50%;
+background:conic-gradient(#7c3aed22,#22d3ee22,#34d39922,#f472b622,#7c3aed22);
+animation:spin 30s linear infinite;
+z-index:-2;
 }
-
-@keyframes rotateBg {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Floating particles */
-.floating-particles::before,
-.floating-particles::after {
-    content:"";
-    position:fixed;
-    width:100%;
-    height:100%;
-    background-image: radial-gradient(#22d3ee55 2px, transparent 2px);
-    background-size: 60px 60px;
-    animation: floatParticles 60s linear infinite;
-    z-index:-1;
+.particles::before{
+content:"";
+position:fixed;width:100%;height:100%;
+background-image:radial-gradient(#22d3ee44 2px,transparent 2px);
+background-size:70px 70px;
+animation:float 80s linear infinite;
+z-index:-1;
+}
+@keyframes float{to{transform:translateY(-200px)}}
+
+/* Cursor glow */
+.cursor-glow{
+position:fixed;width:300px;height:300px;
+background:radial-gradient(circle,#22d3ee33,transparent 70%);
+border-radius:50%;pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:-1;
 }
 
-.floating-particles::after {
-    background-image: radial-gradient(#7c3aed55 2px, transparent 2px);
-    animation-direction: reverse;
+/* NAV */
+nav{
+position:fixed;top:0;width:100%;
+display:flex;justify-content:space-between;
+padding:18px 5%;
+backdrop-filter:blur(20px);
+background:rgba(20,20,40,0.4);
+z-index:1000;
 }
 
-@keyframes floatParticles {
-    from { transform: translateY(0); }
-    to { transform: translateY(-200px); }
+nav h2{
+background:linear-gradient(90deg,var(--accent),var(--primary));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-/* Cursor Glow */
-.cursor-glow {
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    pointer-events: none;
-    background: radial-gradient(circle, #22d3ee33, transparent 70%);
-    transform: translate(-50%, -50%);
-    z-index: -1;
-}
+nav ul{display:flex;gap:25px;list-style:none}
+nav a{color:var(--text-secondary);text-decoration:none;transition:.3s}
+nav a:hover{color:var(--accent)}
 
-/* NAVIGATION */
-nav {
-    position:fixed;
-    top:0;
-    width:100%;
-    padding:20px 5%;
-    backdrop-filter: blur(20px);
-    background: rgba(20,20,40,0.5);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
-}
-
-nav h2 {
-    background: linear-gradient(90deg,var(--accent),var(--primary));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-nav ul {
-    list-style:none;
-    display:flex;
-    gap:30px;
-}
-
-nav a {
-    text-decoration:none;
-    color:var(--text-secondary);
-    transition:0.3s;
-}
-
-nav a:hover {
-    color:var(--accent);
+.toggle{
+cursor:pointer;
+padding:6px 12px;
+border-radius:20px;
+background:var(--bg-card);
+border:1px solid var(--border);
 }
 
 /* HERO */
-.hero {
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:0 20px;
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:0 20px;
 }
 
-.hero h1 {
-    font-size:4rem;
-    background: linear-gradient(90deg,var(--primary),var(--accent));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.hero h1{
+font-size:4rem;
+background:linear-gradient(90deg,var(--primary),var(--accent));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.hero p {
-    margin-top:20px;
-    font-size:1.3rem;
-    color:var(--text-secondary);
+.hero p{margin-top:15px;color:var(--text-secondary)}
+
+.card{
+margin-top:40px;
+padding:40px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+border:1px solid var(--border);
+border-radius:20px;
+transition:.4s;
+}
+.card:hover{transform:translateY(-10px)}
+
+/* INFRASTRUCTURE SVG */
+.infra{
+padding:100px 5%;
+text-align:center;
 }
 
-/* CARD */
-.card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:40px;
-    margin-top:40px;
-    transition:0.4s;
+svg rect{
+fill:var(--bg-card);
+stroke:var(--accent);
+stroke-width:2;
+rx:12;
+transition:.3s;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow:0 20px 60px rgba(124,58,237,0.3);
+svg rect:hover{
+stroke-width:4;
+filter:drop-shadow(0 0 15px var(--accent));
+cursor:pointer;
 }
 
-/* BUTTON */
-.btn {
-    margin-top:30px;
-    padding:15px 30px;
-    border:none;
-    border-radius:30px;
-    background:linear-gradient(90deg,var(--primary),var(--accent));
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
+.tooltip{
+position:absolute;
+background:var(--bg-card);
+padding:10px 15px;
+border-radius:8px;
+border:1px solid var(--border);
+font-size:14px;
+display:none;
+pointer-events:none;
 }
 
-.btn:hover {
-    transform:scale(1.05);
+/* Footer */
+footer{
+text-align:center;
+padding:40px;
+color:var(--text-secondary);
 }
 
-/* Responsive */
 @media(max-width:768px){
-    .hero h1{ font-size:2.5rem; }
+.hero h1{font-size:2.5rem}
 }
 </style>
 </head>
 
 <body>
-
-<div class="floating-particles"></div>
+<div class="particles"></div>
 <div class="cursor-glow"></div>
 
 <nav>
-    <h2>&lt;/anudeep&gt;</h2>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Skills</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
+<h2>&lt;/anudeep&gt;</h2>
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Projects</a></li>
+<li><a href="#">Skills</a></li>
+</ul>
+<div class="toggle" onclick="toggleTheme()">🌙 / ☀</div>
 </nav>
 
 <section class="hero">
-    <div>
-        <h1>Hybrid Cloud Engineer</h1>
-        <p>VMware Administration | Windows Server Specialist</p>
-
-        <div class="card">
-            <h3>Enterprise Infrastructure Architect</h3>
-            <p>Managing 2000+ VMs | 9000+ Windows Servers | 800+ Physical Servers</p>
-            <button class="btn">Explore Projects</button>
-        </div>
-    </div>
+<div>
+<h1>Hybrid Cloud Architect</h1>
+<p>VMware | Windows Server | Azure</p>
+<div class="card">
+Managing 2000+ VMs • 9000+ Servers • 800+ Physical Infrastructure
+</div>
+</div>
 </section>
 
+<section class="infra">
+<h2>Live Infrastructure Architecture</h2>
+<br><br>
+
+<div style="position:relative;display:inline-block">
+<svg width="700" height="300">
+<rect x="50" y="100" width="150" height="80" data-info="Data Center 1 - 800+ Physical Servers"></rect>
+<rect x="275" y="80" width="150" height="80" data-info="vCenter Server - Management Layer"></rect>
+<rect x="500" y="100" width="150" height="80" data-info="Azure Cloud - Hybrid Integration"></rect>
+</svg>
+<div class="tooltip" id="tooltip"></div>
+</div>
+</section>
+
+<footer>
+© 2026 Anudeep | Enterprise Infrastructure Portfolio
+</footer>
+
 <script>
-const glow = document.querySelector('.cursor-glow');
-document.addEventListener('mousemove', (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
+/* Cursor glow */
+const glow=document.querySelector(".cursor-glow");
+document.addEventListener("mousemove",e=>{
+glow.style.left=e.clientX+"px";
+glow.style.top=e.clientY+"px";
+});
+
+/* Dark/Light toggle */
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+/* SVG Tooltips */
+const tooltip=document.getElementById("tooltip");
+document.querySelectorAll("svg rect").forEach(rect=>{
+rect.addEventListener("mousemove",e=>{
+tooltip.style.display="block";
+tooltip.innerText=rect.dataset.info;
+tooltip.style.left=e.pageX+10+"px";
+tooltip.style.top=e.pageY+10+"px";
+});
+rect.addEventListener("mouseleave",()=>{
+tooltip.style.display="none";
+});
+});
+
+/* Performance optimization: reduce animation on inactive tab */
+document.addEventListener("visibilitychange",()=>{
+if(document.hidden){
+document.body.style.animationPlayState="paused";
+}else{
+document.body.style.animationPlayState="running";
+}
 });
 </script>
 
