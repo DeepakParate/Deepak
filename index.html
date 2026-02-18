@@ -3,328 +3,240 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hybrid Cloud Engineer | Expressive Portfolio</title>
 
-<title>Deepak Parate | Enterprise Cloud Architect</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-
-/* =============================
+/* ===============================
    MATERIAL 3 EXPRESSIVE THEME
-============================= */
+================================= */
 
 :root {
-  --primary: #6750A4;
-  --on-primary: #ffffff;
-  --surface: #ffffff;
-  --background: #f4f2fa;
-  --text: #1d1b20;
-  --card: rgba(255,255,255,0.65);
-  --border-radius: 24px;
+    --primary: #7c3aed;
+    --primary-dark: #5b21b6;
+    --accent: #22d3ee;
+    --accent-warm: #f472b6;
+    --accent-green: #34d399;
+    --bg-dark: #0f0f1b;
+    --bg-card: #1a1a2e;
+    --bg-elevated: #24243e;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+    --border: rgba(255,255,255,0.08);
 }
 
-body.dark {
-  --primary: #D0BCFF;
-  --surface: #1c1b1f;
-  --background: #121212;
-  --text: #E6E1E5;
-  --card: rgba(28,27,31,0.65);
-}
-
+/* Reset */
 * {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--text);
-  overflow-x:hidden;
-  transition: 0.4s ease;
+    background: radial-gradient(circle at 20% 30%, #7c3aed22, transparent 40%),
+                radial-gradient(circle at 80% 70%, #22d3ee22, transparent 40%),
+                radial-gradient(circle at 50% 50%, #f472b622, transparent 50%),
+                var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
 }
 
-/* =============================
-   PARTICLE NETWORK BACKGROUND
-============================= */
-
-canvas {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
+/* Aurora animated layer */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: conic-gradient(
+        from 0deg,
+        #7c3aed33,
+        #22d3ee33,
+        #34d39933,
+        #f472b633,
+        #7c3aed33
+    );
+    animation: rotateBg 25s linear infinite;
+    z-index: -2;
 }
 
-/* =============================
-   HERO SECTION
-============================= */
+@keyframes rotateBg {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 
+/* Floating particles */
+.floating-particles::before,
+.floating-particles::after {
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image: radial-gradient(#22d3ee55 2px, transparent 2px);
+    background-size: 60px 60px;
+    animation: floatParticles 60s linear infinite;
+    z-index:-1;
+}
+
+.floating-particles::after {
+    background-image: radial-gradient(#7c3aed55 2px, transparent 2px);
+    animation-direction: reverse;
+}
+
+@keyframes floatParticles {
+    from { transform: translateY(0); }
+    to { transform: translateY(-200px); }
+}
+
+/* Cursor Glow */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, #22d3ee33, transparent 70%);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/* NAVIGATION */
+nav {
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 5%;
+    backdrop-filter: blur(20px);
+    background: rgba(20,20,40,0.5);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+nav h2 {
+    background: linear-gradient(90deg,var(--accent),var(--primary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+nav ul {
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+nav a {
+    text-decoration:none;
+    color:var(--text-secondary);
+    transition:0.3s;
+}
+
+nav a:hover {
+    color:var(--accent);
+}
+
+/* HERO */
 .hero {
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:40px;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0 20px;
 }
 
 .hero h1 {
-  font-size:60px;
-  font-weight:900;
-  background: linear-gradient(90deg,#6750A4,#00c6ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+    font-size:4rem;
+    background: linear-gradient(90deg,var(--primary),var(--accent));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-.typing {
-  font-size:22px;
-  margin-top:15px;
-  font-weight:600;
-  color:var(--primary);
+.hero p {
+    margin-top:20px;
+    font-size:1.3rem;
+    color:var(--text-secondary);
 }
 
-.btn {
-  margin-top:30px;
-  padding:14px 28px;
-  border-radius:50px;
-  border:none;
-  cursor:pointer;
-  font-weight:600;
-  background:var(--primary);
-  color:white;
-  transition:0.3s;
-}
-
-.btn:hover {
-  transform:scale(1.05);
-}
-
-/* =============================
-   CARD DESIGN
-============================= */
-
-.section {
-  padding:100px 10%;
-}
-
+/* CARD */
 .card {
-  background:var(--card);
-  backdrop-filter: blur(25px);
-  border-radius:var(--border-radius);
-  padding:40px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.15);
-  margin-bottom:40px;
-  transition:0.3s;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:40px;
+    margin-top:40px;
+    transition:0.4s;
 }
 
 .card:hover {
-  transform:translateY(-10px);
+    transform: translateY(-10px);
+    box-shadow:0 20px 60px rgba(124,58,237,0.3);
 }
 
-/* =============================
-   SKILL BARS
-============================= */
-
-.skill {
-  margin-bottom:25px;
+/* BUTTON */
+.btn {
+    margin-top:30px;
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,var(--primary),var(--accent));
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-.skill-name {
-  margin-bottom:8px;
-  font-weight:600;
+.btn:hover {
+    transform:scale(1.05);
 }
 
-.progress {
-  height:12px;
-  background:rgba(0,0,0,0.1);
-  border-radius:20px;
-  overflow:hidden;
-}
-
-.progress-bar {
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#6750A4,#00c6ff);
-  border-radius:20px;
-  transition:2s ease;
-}
-
-/* =============================
-   TOGGLE
-============================= */
-
-.toggle {
-  position:fixed;
-  top:20px;
-  right:20px;
-  cursor:pointer;
-  background:var(--primary);
-  color:white;
-  padding:10px 18px;
-  border-radius:50px;
-  font-weight:600;
-}
-
-/* =============================
-   RESPONSIVE
-============================= */
-
+/* Responsive */
 @media(max-width:768px){
-  .hero h1 { font-size:40px; }
+    .hero h1{ font-size:2.5rem; }
 }
-
 </style>
 </head>
 
 <body>
 
-<canvas id="particles"></canvas>
+<div class="floating-particles"></div>
+<div class="cursor-glow"></div>
 
-<div class="toggle" onclick="toggleTheme()">🌗 Theme</div>
+<nav>
+    <h2>&lt;/anudeep&gt;</h2>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Skills</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
 
 <section class="hero">
-  <h1>Deepak Parate</h1>
-  <div class="typing" id="typing"></div>
-  <button class="btn">Download Resume</button>
-</section>
+    <div>
+        <h1>Hybrid Cloud Engineer</h1>
+        <p>VMware Administration | Windows Server Specialist</p>
 
-<section class="section">
-  <div class="card">
-    <h2>Enterprise Skills</h2>
-
-    <div class="skill">
-      <div class="skill-name">VMware vSphere 8</div>
-      <div class="progress"><div class="progress-bar" data-width="95%"></div></div>
+        <div class="card">
+            <h3>Enterprise Infrastructure Architect</h3>
+            <p>Managing 2000+ VMs | 9000+ Windows Servers | 800+ Physical Servers</p>
+            <button class="btn">Explore Projects</button>
+        </div>
     </div>
-
-    <div class="skill">
-      <div class="skill-name">Microsoft Azure</div>
-      <div class="progress"><div class="progress-bar" data-width="90%"></div></div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-name">AWS Cloud</div>
-      <div class="progress"><div class="progress-bar" data-width="85%"></div></div>
-    </div>
-
-  </div>
 </section>
 
 <script>
-
-/* =============================
-   PARTICLE NETWORK
-============================= */
-
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-  particles.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    vx: (Math.random()-0.5)*1,
-    vy: (Math.random()-0.5)*1
-  });
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if(p.x<0||p.x>canvas.width) p.vx*=-1;
-    if(p.y<0||p.y>canvas.height) p.vy*=-1;
-
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,2,0,Math.PI*2);
-    ctx.fillStyle="#6750A4";
-    ctx.fill();
-
-    particles.forEach(p2=>{
-      let dx=p.x-p2.x;
-      let dy=p.y-p2.y;
-      let dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120){
-        ctx.beginPath();
-        ctx.moveTo(p.x,p.y);
-        ctx.lineTo(p2.x,p2.y);
-        ctx.strokeStyle="rgba(103,80,164,0.2)";
-        ctx.stroke();
-      }
-    });
-  });
-
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* =============================
-   TYPING EFFECT
-============================= */
-
-const texts=["Enterprise Cloud Architect",
-             "VMware Infrastructure Expert",
-             "Azure & AWS Specialist"];
-
-let count=0;
-let index=0;
-let currentText="";
-let letter="";
-
-(function type(){
-  if(count===texts.length) count=0;
-  currentText=texts[count];
-  letter=currentText.slice(0,++index);
-
-  document.getElementById("typing").textContent=letter;
-
-  if(letter.length===currentText.length){
-    count++;
-    index=0;
-    setTimeout(type,1000);
-  } else {
-    setTimeout(type,80);
-  }
-})();
-
-/* =============================
-   SKILL BAR ANIMATION
-============================= */
-
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const bars=document.querySelectorAll(".progress-bar");
-      bars.forEach(bar=>{
-        bar.style.width=bar.dataset.width;
-      });
-    }
-  });
+const glow = document.querySelector('.cursor-glow');
+document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
 });
-
-observer.observe(document.querySelector(".section"));
-
-/* =============================
-   DARK LIGHT TOGGLE
-============================= */
-
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-}
-
 </script>
 
 </body>
