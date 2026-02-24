@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Anudeep Adari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Archivo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066cc; --primary-dark: #004999; --accent: #00d4ff;
+            --bg-dark: #0a0e27; --bg-card: #141829; --bg-elevated: #1a1f3a;
+            --text-primary: #e8eaf0; --text-secondary: #a0a8c0; --text-muted: #6b7280;
+            --success: #10b981; --border: rgba(255,255,255,0.08);
+            --shadow: 0 8px 32px rgba(0,0,0,0.3); --shadow-lg: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Archivo', sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        .bg-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.03; background-image: linear-gradient(90deg, var(--primary) 1px, transparent 1px), linear-gradient(0deg, var(--primary) 1px, transparent 1px); background-size: 50px 50px; animation: gridScroll 20s linear infinite; }
+        @keyframes gridScroll { 0% { transform: translate(0,0); } 100% { transform: translate(50px,50px); } }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,14,39,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 5%; transition: all 0.3s ease; }
+        nav.scrolled { background: rgba(10,14,39,0.97); box-shadow: var(--shadow); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
+        .logo { font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-secondary); text-decoration: none; position: relative; transition: all 0.3s ease; }
+        .nav-links a.active { color: var(--accent); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .btn-contact { padding: 0.6rem 1.5rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; text-decoration: none; }
+        .btn-contact:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,102,204,0.4); }
+        .mobile-toggle { display: none; font-size: 1.5rem; color: var(--text-primary); cursor: pointer; background: none; border: none; }
+
+        .page-hero { padding: 140px 5% 60px; max-width: 1400px; margin: 0 auto; }
+        .page-breadcrumb { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .page-breadcrumb a { color: var(--accent); text-decoration: none; }
+        .page-hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 650px; }
+
+        .page-content { padding: 0 5% 6rem; max-width: 1400px; margin: 0 auto; }
+        .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
+        .about-sidebar { position: sticky; top: 120px; height: fit-content; }
+
+        .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; text-align: center; position: relative; overflow: hidden; }
+        .sidebar-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+        .avatar-large { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--primary); margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--primary-dark), var(--bg-elevated)); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--accent); box-shadow: 0 10px 40px rgba(0,102,204,0.3); }
+        .sidebar-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.3rem; }
+        .sidebar-role { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem; }
+        .sidebar-status { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--success); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .status-dot { width: 7px; height: 7px; background: var(--success); border-radius: 50%; animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .sidebar-info { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem; text-align: left; }
+        .info-row { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.85rem; }
+        .info-icon { color: var(--accent); width: 16px; margin-top: 2px; flex-shrink: 0; }
+        .info-label { color: var(--text-muted); min-width: 60px; }
+        .info-value { color: var(--text-primary); font-weight: 500; }
+
+        .sidebar-certs { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .cert-badge { padding: 0.35rem 0.8rem; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.25); border-radius: 20px; font-size: 0.7rem; color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+
+        .about-main { display: flex; flex-direction: column; gap: 2.5rem; }
+        .content-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+        .content-block h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent); display: flex; align-items: center; gap: 0.75rem; }
+        .content-block p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; font-size: 1rem; }
+        .content-block p:last-child { margin-bottom: 0; }
+
+        .exp-item { display: flex; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+        .exp-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .exp-logo { width: 56px; height: 56px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); flex-shrink: 0; }
+        .exp-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .exp-company { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+        .exp-period { color: var(--text-muted); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.75rem; }
+        .exp-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.75; }
+        .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+        .exp-tag { padding: 0.2rem 0.6rem; background: rgba(0,102,204,0.12); border: 1px solid rgba(0,102,204,0.25); border-radius: 4px; font-size: 0.72rem; color: var(--primary); font-family: 'JetBrains Mono', monospace; }
+
+        .edu-item { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .edu-item:last-child { margin-bottom: 0; }
+        .edu-icon { width: 48px; height: 48px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--accent); flex-shrink: 0; }
+        .edu-body h3 { font-size: 1.05rem; font-weight: 700; }
+        .edu-school { color: var(--accent); font-size: 0.88rem; font-weight: 600; }
+        .edu-year { color: var(--text-muted); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-top: 0.2rem; }
+
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
+        .value-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; }
+        .value-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .value-icon { font-size: 2rem; color: var(--accent); margin-bottom: 0.75rem; display: block; }
+        .value-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .value-card p { font-size: 0.8rem; color: var(--text-secondary); }
+
+        footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 4rem 5% 2rem; margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+        .footer-brand h3 { font-size: 1.6rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-brand p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-link { width: 40px; height: 40px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); transition: all 0.3s ease; text-decoration: none; }
+        .social-link:hover { background: var(--accent); color: var(--bg-dark); transform: translateY(-3px); }
+        .footer-section h4 { font-size: 1rem; margin-bottom: 1.2rem; color: var(--text-primary); }
+        .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; transition: all 0.3s ease; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent); padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) { .about-grid { grid-template-columns: 1fr; } .about-sidebar { position: static; } .footer-content { grid-template-columns: 1fr; gap: 2rem; } }
+        @media (max-width: 768px) { .nav-links { position: fixed; top: 70px; left: -100%; width: 100%; background: rgba(10,14,39,0.98); backdrop-filter: blur(20px); flex-direction: column; padding: 2rem; gap: 1.5rem; transition: left 0.3s ease; border-bottom: 1px solid var(--border); } .nav-links.active { left: 0; } .mobile-toggle { display: block; } .page-hero h1 { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+<div class="bg-animation"></div>
+
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">&lt;/anudeep&gt;</a>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="lifecycle.html">Lifecycle</a>
+            <a href="sops.html">SOPs</a>
+            <a href="projects.html">Projects</a>
+            <a href="skills.html">Skills</a>
+            <a href="contact.html" class="btn-contact">Contact</a>
+        </div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="page-hero">
+    <div class="page-breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right" style="font-size:0.7rem"></i>
+        About
+    </div>
+    <h1>About <span style="background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Me</span></h1>
+    <p>VMware Administrator & Windows Server Specialist with hands-on experience managing enterprise-scale infrastructure at Wipro and Cognizant.</p>
+</div>
+
+<div class="page-content">
+    <div class="about-grid">
+
+        <!-- Sidebar -->
+        <div class="about-sidebar fade-up">
+            <div class="sidebar-card">
+                <div class="avatar-large"><i class="fas fa-user-astronaut"></i></div>
+                <div class="sidebar-name">Anudeep Adari</div>
+                <div class="sidebar-role">VMware Administrator · Windows Server</div>
+                <div class="sidebar-status"><span class="status-dot"></span>Open to Opportunities</div>
+                <div class="sidebar-info">
+                    <div class="info-row">
+                        <i class="fas fa-map-marker-alt info-icon"></i>
+                        <span class="info-label">Location</span>
+                        <span class="info-value">Visakhapatnam, India</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-briefcase info-icon"></i>
+                        <span class="info-label">Company</span>
+                        <span class="info-value">Wipro</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-calendar info-icon"></i>
+                        <span class="info-label">Experience</span>
+                        <span class="info-value">3+ Years</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-envelope info-icon"></i>
+                        <span class="info-label">Email</span>
+                        <span class="info-value" style="font-size:0.78rem">anudeepvamsi2@gmail.com</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-phone info-icon"></i>
+                        <span class="info-label">Phone</span>
+                        <span class="info-value">+91 6281102066</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fab fa-linkedin info-icon"></i>
+                        <span class="info-label">LinkedIn</span>
+                        <span class="info-value" style="font-size:0.78rem">
+                            <a href="https://www.linkedin.com/in/anudeepadari/" target="_blank" style="color:var(--accent);text-decoration:none">in/anudeepadari</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="sidebar-certs">
+                    <span class="cert-badge">AZ-900</span>
+                    <span class="cert-badge">vSphere 8</span>
+                    <span class="cert-badge">ITIL V4</span>
+                    <span class="cert-badge">Gen AI</span>
+                    <span class="cert-badge">PM Foundations</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="about-main">
+
+            <div class="content-block fade-up">
+                <h2><i class="fas fa-user"></i> Who I Am</h2>
+                <p>I'm Anudeep Adari, a VMware Administrator & Windows Server Specialist currently working at Wipro, where I manage enterprise-scale VMware vSphere environments, Windows Server infrastructure, and Active Directory for global clients.</p>
+                <p>With over 3 years of hands-on experience across Wipro and Cognizant Technology Solutions, I've delivered complex infrastructure projects for clients like Central Bank of India and Clorox Corporation — managing 150+ virtual machines, performing live vCenter migrations from vSphere 6.0 to 7.0, and hardening 100+ Windows Servers to CIS standards.</p>
+                <p>I'm passionate about infrastructure automation, security compliance, and building systems that are resilient, scalable, and optimized for performance. When I'm not managing infrastructure, I'm writing SOPs, scripting PowerShell automations, and exploring the latest in cloud-native technologies.</p>
+            </div>
+
+            <div class="content-block fade-up">
+                <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+
+                <div class="exp-item">
+                    <div class="exp-logo"><i class="fas fa-building"></i></div>
+                    <div class="exp-body">
+                        <h3>VMware Administrator</h3>
+                        <div class="exp-company">Wipro &nbsp;·&nbsp; Navi Mumbai</div>
+                        <div class="exp-period">Apr 2025 – Present</div>
+                        <div class="exp-desc">Administering Windows Server environments (2008–2022) including OS upgrades, patching cycles, performance tuning, and vulnerability remediation. Managing vSphere with vCenter and ESXi — VM provisioning, snapshot lifecycle, storage tuning, and HA/DRS configurations. Maintaining Active Directory across multiple domains (GPOs, OU structure, FSMO roles, replication health). Automating routine admin tasks via PowerShell and resolving L2/L3 incidents through ServiceNow. Deployed and managed Symantec Endpoint Protection across the enterprise.</div>
+                        <div class="exp-tags">
+                            <span class="exp-tag">VMware vSphere</span>
+                            <span class="exp-tag">vCenter</span>
+                            <span class="exp-tag">ESXi</span>
+                            <span class="exp-tag">Windows Server</span>
+                            <span class="exp-tag">Active Directory</span>
+                            <span class="exp-tag">PowerShell</span>
+                            <span class="exp-tag">WSUS</span>
+                            <span class="exp-tag">ServiceNow</span>
+                            <span class="exp-tag">Symantec EP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-logo"><i class="fas fa-laptop-code"></i></div>
+                    <div class="exp-body">
+                        <h3>Technical Lead</h3>
+                        <div class="exp-company">Cognizant Technology Solutions &nbsp;·&nbsp; Chennai</div>
+                        <div class="exp-period">Jan 2022 – Jul 2024 &nbsp;·&nbsp; 2.5 Years</div>
+                        <div class="exp-desc">Led a complex Active Directory migration from Windows Server 2012 R2 to 2019 for a large-scale enterprise. Engineered and managed a multi-site VMware vSphere infrastructure, executing a live vCenter migration from vSphere 6.0 to 7.0. Reduced server downtime by 25% across EMEA, SA, and NA sites by proactively managing VMware alerts. Handled 20+ service/change requests monthly via ServiceNow and completed 18+ patching and maintenance tasks monthly using ScienceLogic. Provisioned scalable storage via LVMs and configured RAID levels (0, 1, 5, 10).</div>
+                        <div class="exp-tags">
+                            <span class="exp-tag">vSphere 6/7</span>
+                            <span class="exp-tag">vCenter Migration</span>
+                            <span class="exp-tag">AD Migration</span>
+                            <span class="exp-tag">GPO / DNS</span>
+                            <span class="exp-tag">RAID / LVM</span>
+                            <span class="exp-tag">ScienceLogic</span>
+                            <span class="exp-tag">ServiceNow</span>
+                            <span class="exp-tag">ITIL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block fade-up">
+                <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                <div class="edu-item">
+                    <div class="edu-icon"><i class="fas fa-university"></i></div>
+                    <div class="edu-body">
+                        <h3>Master of Business Administration — Finance</h3>
+                        <div class="edu-school">Andhra University, Andhra Pradesh, India</div>
+                        <div class="edu-year">Jun 2023 – Jul 2026 &nbsp;·&nbsp; In Progress</div>
+                    </div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="edu-body">
+                        <h3>Bachelor of Commerce</h3>
+                        <div class="edu-school">Andhra University, Andhra Pradesh, India</div>
+                        <div class="edu-year">Jun 2016 – Jul 2019 &nbsp;·&nbsp; Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block fade-up">
+                <h2><i class="fas fa-heart"></i> What Drives Me</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <span class="value-icon"><i class="fas fa-robot"></i></span>
+                        <h4>Automation First</h4>
+                        <p>Eliminate manual toil with PowerShell scripts and smart tooling.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon"><i class="fas fa-shield-alt"></i></span>
+                        <h4>Security by Design</h4>
+                        <p>CIS benchmarks, hardening policies, and least-privilege principles.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon"><i class="fas fa-chart-line"></i></span>
+                        <h4>Continuous Learning</h4>
+                        <p>Always chasing the next certification and the latest in cloud tech.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon"><i class="fas fa-users"></i></span>
+                        <h4>Client Impact</h4>
+                        <p>Infrastructure that directly enables business outcomes and uptime SLAs.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.about-main -->
+    </div><!-- /.about-grid -->
+</div><!-- /.page-content -->
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h3>Anudeep Adari</h3>
+            <p>VMware Administrator & Windows Server Specialist at Wipro. Passionate about infrastructure automation, hybrid cloud, and enterprise-grade reliability.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/anudeepadari/" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:anudeepvamsi2@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="tel:+916281102066" class="social-link"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="lifecycle.html">Lifecycle</a>
+                <a href="sops.html">SOPs</a>
+                <a href="projects.html">Projects</a>
+                <a href="skills.html">Skills</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <div class="footer-links">
+                <a href="mailto:anudeepvamsi2@gmail.com">anudeepvamsi2@gmail.com</a>
+                <a href="tel:+916281102066">+91 6281102066</a>
+                <a>Visakhapatnam, AP, India</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Anudeep Adari. All rights reserved.</p></div>
+</footer>
+
+<script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function () {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    document.getElementById('mobileToggle').addEventListener('click', function () {
+        document.getElementById('navLinks').classList.toggle('active');
+        var icon = this.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    // Reveal .fade-up elements — runs on load AND scroll
+    function revealElements() {
+        var elements = document.querySelectorAll('.fade-up');
+        elements.forEach(function (el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 40) {
+                el.classList.add('visible');
+            }
+        });
+    }
+
+    // Run immediately, on scroll, and after full page load
+    revealElements();
+    window.addEventListener('scroll', revealElements);
+    window.addEventListener('load', revealElements);
+</script>
+</body>
+</html>

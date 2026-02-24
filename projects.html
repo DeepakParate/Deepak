@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Anudeep Adari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Archivo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary:#0066cc;--primary-dark:#004999;--accent:#00d4ff;--accent-warm:#ff6b35;--bg-dark:#0a0e27;--bg-card:#141829;--bg-elevated:#1a1f3a;--text-primary:#e8eaf0;--text-secondary:#a0a8c0;--text-muted:#6b7280;--success:#10b981;--border:rgba(255,255,255,0.08);--shadow:0 8px 32px rgba(0,0,0,0.3);--shadow-lg:0 20px 60px rgba(0,0,0,0.4); }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Archivo',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;overflow-x:hidden;}
+        .bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.03;background-image:linear-gradient(90deg,var(--primary) 1px,transparent 1px),linear-gradient(0deg,var(--primary) 1px,transparent 1px);background-size:50px 50px;animation:gridScroll 20s linear infinite;}
+        @keyframes gridScroll{0%{transform:translate(0,0);}100%{transform:translate(50px,50px);}}
+        nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,39,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 5%;transition:all 0.3s ease;}
+        nav.scrolled{background:rgba(10,14,39,0.97);box-shadow:var(--shadow);}
+        .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;}
+        .logo{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+        .nav-links{display:flex;gap:2.5rem;align-items:center;}
+        .nav-links a{font-weight:500;font-size:0.95rem;color:var(--text-secondary);text-decoration:none;position:relative;transition:all 0.3s ease;}
+        .nav-links a.active{color:var(--accent);}
+        .nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s ease;}
+        .nav-links a:hover{color:var(--text-primary);}
+        .nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+        .btn-contact{padding:0.6rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;border-radius:6px;color:white;font-weight:600;cursor:pointer;transition:all 0.3s ease;font-size:0.9rem;text-decoration:none;}
+        .btn-contact:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,102,204,0.4);}
+        .mobile-toggle{display:none;font-size:1.5rem;color:var(--text-primary);cursor:pointer;background:none;border:none;}
+
+        .page-hero{padding:160px 5% 60px;max-width:1400px;margin:0 auto;}
+        .page-breadcrumb{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-muted);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem;}
+        .page-breadcrumb a{color:var(--accent);text-decoration:none;}
+        .page-hero h1{font-size:3.5rem;font-weight:900;line-height:1.1;margin-bottom:1rem;}
+        .page-hero p{font-size:1.1rem;color:var(--text-secondary);max-width:600px;}
+
+        /* Filter tabs */
+        .filter-bar{padding:0 5%;max-width:1400px;margin:2rem auto;}
+        .filter-tabs{display:flex;gap:0.75rem;flex-wrap:wrap;}
+        .filter-tab{padding:0.5rem 1.2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.85rem;color:var(--text-secondary);cursor:pointer;transition:all 0.3s ease;font-family:'JetBrains Mono',monospace;}
+        .filter-tab:hover,.filter-tab.active{background:rgba(0,102,204,0.2);border-color:var(--primary);color:var(--accent);}
+
+        /* Projects grid */
+        .page-content{padding:2rem 5% 6rem;max-width:1400px;margin:0 auto;}
+        .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:2rem;}
+        .project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.35s ease;cursor:pointer;display:flex;flex-direction:column;}
+        .project-card:hover{transform:translateY(-8px);border-color:var(--primary);box-shadow:var(--shadow-lg);}
+        .project-banner{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
+        .project-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,14,39,0.6));}
+        .project-banner-tag{position:absolute;top:1rem;right:1rem;z-index:1;padding:0.3rem 0.8rem;background:rgba(10,14,39,0.7);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:20px;font-size:0.72rem;color:var(--text-secondary);font-family:'JetBrains Mono',monospace;}
+        .project-body{padding:1.8rem;flex:1;display:flex;flex-direction:column;}
+        .project-cat{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;}
+        .project-title{font-size:1.2rem;font-weight:700;margin-bottom:0.75rem;line-height:1.3;}
+        .project-desc{color:var(--text-secondary);font-size:0.88rem;line-height:1.7;flex:1;margin-bottom:1.5rem;}
+        .project-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.2rem;}
+        .tech-tag{padding:0.2rem 0.6rem;background:rgba(0,102,204,0.1);border:1px solid rgba(0,102,204,0.25);border-radius:4px;font-size:0.7rem;color:var(--primary);font-family:'JetBrains Mono',monospace;}
+        .project-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);}
+        .project-metric{font-size:0.85rem;}
+        .metric-value{color:var(--accent);font-weight:700;font-family:'JetBrains Mono',monospace;}
+        .metric-label{color:var(--text-muted);font-size:0.75rem;}
+        .project-link{display:inline-flex;align-items:center;gap:0.4rem;color:var(--accent);font-size:0.85rem;font-weight:600;text-decoration:none;transition:gap 0.3s ease;}
+        .project-link:hover{gap:0.7rem;}
+
+        /* FOOTER */
+        footer{background:var(--bg-elevated);border-top:1px solid var(--border);padding:4rem 5% 2rem;}
+        .footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem;}
+        .footer-brand h3{font-size:1.6rem;margin-bottom:1rem;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+        .footer-brand p{color:var(--text-secondary);line-height:1.7;margin-bottom:1.5rem;}
+        .social-links{display:flex;gap:1rem;}
+        .social-link{width:40px;height:40px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--accent);transition:all 0.3s ease;text-decoration:none;}
+        .social-link:hover{background:var(--accent);color:var(--bg-dark);transform:translateY(-3px);}
+        .footer-section h4{font-size:1rem;margin-bottom:1.2rem;}
+        .footer-links{display:flex;flex-direction:column;gap:0.6rem;}
+        .footer-links a{color:var(--text-secondary);text-decoration:none;transition:all 0.3s ease;font-size:0.9rem;}
+        .footer-links a:hover{color:var(--accent);padding-left:5px;}
+        .footer-bottom{text-align:center;padding-top:2rem;border-top:1px solid var(--border);color:var(--text-muted);font-size:0.85rem;}
+        .fade-up{opacity:0;transform:translateY(30px);transition:all 0.6s ease-out;}
+        .fade-up.visible{opacity:1;transform:translateY(0);}
+        @media(max-width:1024px){.footer-content{grid-template-columns:1fr;gap:2rem;}}
+        @media(max-width:768px){.nav-links{position:fixed;top:70px;left:-100%;width:100%;background:rgba(10,14,39,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:2rem;gap:1.5rem;transition:left 0.3s ease;border-bottom:1px solid var(--border);}.nav-links.active{left:0;}.mobile-toggle{display:block;}.page-hero h1{font-size:2.5rem;}.projects-grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+<div class="bg-animation"></div>
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">&lt;/anudeep&gt;</a>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="lifecycle.html">Lifecycle</a>
+            <a href="sops.html">SOPs</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="skills.html">Skills</a>
+            <a href="contact.html" class="btn-contact">Contact</a>
+        </div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="page-hero">
+    <div class="page-breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Projects</div>
+    <h1>Featured <span style="background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Projects</span></h1>
+    <p>Real-world enterprise infrastructure projects delivered for global clients — from VMware optimization to hybrid cloud automation.</p>
+</div>
+
+<div class="filter-bar">
+    <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All Projects</button>
+        <button class="filter-tab" data-filter="vmware">VMware</button>
+        <button class="filter-tab" data-filter="windows">Windows</button>
+        <button class="filter-tab" data-filter="automation">Automation</button>
+        <button class="filter-tab" data-filter="hardware">Hardware</button>
+        <button class="filter-tab" data-filter="cloud">Cloud</button>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="projects-grid">
+
+        <div class="project-card fade-up" data-cat="vmware">
+            <div class="project-banner" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);">
+                <i class="fas fa-server" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">VMware</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Infrastructure Optimization</div>
+                <h3 class="project-title">vSphere Enterprise Optimization — Central Bank of India</h3>
+                <p class="project-desc">Managed 150+ virtual machines for Central Bank of India. Implemented advanced HA/DRS tuning, resource pool optimization, and storage DRS policies. Reduced compute bottlenecks by 25% and achieved 99.99% uptime SLA.</p>
+                <div class="project-tech"><span class="tech-tag">vSphere 8</span><span class="tech-tag">HA/DRS</span><span class="tech-tag">Storage DRS</span><span class="tech-tag">vROps</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">25%</div><div class="metric-label">Bottleneck Reduction</div></div>
+                    <div class="project-metric"><div class="metric-value">99.99%</div><div class="metric-label">Uptime SLA</div></div>
+                    <a href="#" class="project-link">Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="windows">
+            <div class="project-banner" style="background:linear-gradient(135deg,#0078d4,#00bcf2);">
+                <i class="fab fa-windows" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Windows</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Security & Compliance</div>
+                <h3 class="project-title">Enterprise Server Hardening — Clorox Corporation</h3>
+                <p class="project-desc">Administered 100+ Windows Servers for Clorox Corporation. Applied CIS benchmark-compliant hardening via GPO, automated patch management via WSUS/SCCM, and established security baselines across all server tiers.</p>
+                <div class="project-tech"><span class="tech-tag">CIS Benchmarks</span><span class="tech-tag">GPO</span><span class="tech-tag">WSUS</span><span class="tech-tag">SCCM</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">100+</div><div class="metric-label">Servers Hardened</div></div>
+                    <div class="project-metric"><div class="metric-value">100%</div><div class="metric-label">Compliance Rate</div></div>
+                    <a href="#" class="project-link">Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="vmware">
+            <div class="project-banner" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">
+                <i class="fas fa-shield-alt" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">VMware</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Disaster Recovery</div>
+                <h3 class="project-title">Automated DR Solution with SRM</h3>
+                <p class="project-desc">Designed and implemented vSphere Replication and Site Recovery Manager for multi-site disaster recovery. Achieved RPO of 15 minutes and RTO of 2 hours with automated failover testing for critical applications.</p>
+                <div class="project-tech"><span class="tech-tag">vSphere Replication</span><span class="tech-tag">SRM</span><span class="tech-tag">vMotion</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">15min</div><div class="metric-label">RPO Achieved</div></div>
+                    <div class="project-metric"><div class="metric-value">2hr</div><div class="metric-label">RTO Achieved</div></div>
+                    <a href="#" class="project-link">Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="automation">
+            <div class="project-banner" style="background:linear-gradient(135deg,#dc2626,#ef4444);">
+                <i class="fas fa-code" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Automation</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Automation</div>
+                <h3 class="project-title">PowerCLI Automation Framework</h3>
+                <p class="project-desc">Developed a PowerCLI automation framework for VM provisioning, snapshot management, and capacity reporting. Reduced manual VM deployment time from 45 minutes to 5 minutes and automated recurring admin tasks.</p>
+                <div class="project-tech"><span class="tech-tag">PowerCLI</span><span class="tech-tag">PowerShell</span><span class="tech-tag">vCenter API</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">5min</div><div class="metric-label">VM Deploy Time</div></div>
+                    <div class="project-metric"><div class="metric-value">90%</div><div class="metric-label">Time Saved</div></div>
+                    <a href="#" class="project-link">View Scripts <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="vmware">
+            <div class="project-banner" style="background:linear-gradient(135deg,#059669,#10b981);">
+                <i class="fas fa-chart-line" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Monitoring</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Monitoring & Analytics</div>
+                <h3 class="project-title">vRealize Operations Deployment</h3>
+                <p class="project-desc">Deployed vRealize Operations (Aria Operations) across hybrid cloud. Built custom dashboards for capacity planning, configured intelligent alerts, and implemented cost optimization saving 30% in infrastructure costs.</p>
+                <div class="project-tech"><span class="tech-tag">vROps</span><span class="tech-tag">Aria Suite</span><span class="tech-tag">Log Insight</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">30%</div><div class="metric-label">Cost Reduction</div></div>
+                    <a href="#" class="project-link">See Metrics <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="hardware">
+            <div class="project-banner" style="background:linear-gradient(135deg,#0072ce,#007db8);">
+                <i class="fas fa-server" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Hardware</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Hardware Management</div>
+                <h3 class="project-title">Dell PowerEdge Server Management</h3>
+                <p class="project-desc">Deployed and managed Dell PowerEdge rack and blade servers. Implemented iDRAC Enterprise for remote management, configured RAID arrays, firmware updates via Lifecycle Controller, and integrated with Dell OpenManage.</p>
+                <div class="project-tech"><span class="tech-tag">iDRAC</span><span class="tech-tag">RAID</span><span class="tech-tag">OpenManage</span><span class="tech-tag">Lifecycle Controller</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">800+</div><div class="metric-label">Servers Managed</div></div>
+                    <a href="#" class="project-link">Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="hardware">
+            <div class="project-banner" style="background:linear-gradient(135deg,#01a982,#00b388);">
+                <i class="fas fa-hdd" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Hardware</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Enterprise Hardware</div>
+                <h3 class="project-title">HPE ProLiant Gen10/11 Infrastructure</h3>
+                <p class="project-desc">Deployed and maintained HPE ProLiant Gen10/Gen11 servers with iLO 5/6 Advanced. Implemented HPE OneView for infrastructure automation, configured Smart Array controllers, and managed firmware baselines.</p>
+                <div class="project-tech"><span class="tech-tag">iLO 5/6</span><span class="tech-tag">HPE OneView</span><span class="tech-tag">Smart Array</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">Gen10/11</div><div class="metric-label">HPE Servers</div></div>
+                    <a href="#" class="project-link">Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="cloud">
+            <div class="project-banner" style="background:linear-gradient(135deg,#0078d4,#50e6ff);">
+                <i class="fab fa-microsoft" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Cloud</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Hybrid Cloud</div>
+                <h3 class="project-title">Azure Arc Onboarding & Governance</h3>
+                <p class="project-desc">Onboarded on-premises Windows Servers to Azure Arc for unified hybrid cloud management. Enabled Azure Policy, Update Management, and Azure Monitor across distributed server fleets.</p>
+                <div class="project-tech"><span class="tech-tag">Azure Arc</span><span class="tech-tag">Azure Policy</span><span class="tech-tag">Update Mgmt</span><span class="tech-tag">Azure Monitor</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">Hybrid</div><div class="metric-label">Management</div></div>
+                    <a href="#" class="project-link">Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card fade-up" data-cat="vmware">
+            <div class="project-banner" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">
+                <i class="fas fa-exchange-alt" style="color:white;z-index:1;position:relative"></i>
+                <span class="project-banner-tag">Migration</span>
+            </div>
+            <div class="project-body">
+                <div class="project-cat">Migration Services</div>
+                <h3 class="project-title">P2V & V2V Migration Program</h3>
+                <p class="project-desc">Standardized procedures for Physical-to-Virtual and Virtual-to-Virtual migrations using VMware Converter, vMotion, and Storage vMotion. Successfully migrated 500+ workloads with minimal downtime.</p>
+                <div class="project-tech"><span class="tech-tag">VMware Converter</span><span class="tech-tag">vMotion</span><span class="tech-tag">Storage vMotion</span></div>
+                <div class="project-footer">
+                    <div class="project-metric"><div class="metric-value">500+</div><div class="metric-label">Workloads Migrated</div></div>
+                    <a href="#" class="project-link">Read Docs <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h3>Anudeep Adari</h3>
+            <p>Hybrid Cloud Engineer specializing in VMware virtualization and Windows Server infrastructure.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:anudeepvamsi2@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="lifecycle.html">Lifecycle</a>
+                <a href="sops.html">SOPs</a>
+                <a href="projects.html">Projects</a>
+                <a href="skills.html">Skills</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <div class="footer-links">
+                <a href="mailto:anudeepvamsi2@gmail.com">anudeepvamsi2@gmail.com</a>
+                <a href="tel:+916281102066">+91 6281102066</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Anudeep Adari. All rights reserved.</p></div>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+    document.getElementById('mobileToggle').addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('active');
+        const icon = this.querySelector('i');
+        icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Filter functionality
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            const filter = this.dataset.filter;
+            document.querySelectorAll('.project-card').forEach(card => {
+                const cat = card.dataset.cat;
+                card.style.display = (filter === 'all' || cat === filter) ? 'flex' : 'none';
+            });
+        });
+    });
+</script>
+</body>
+</html>
