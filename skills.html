@@ -81,6 +81,23 @@
         .fade-up.visible{opacity:1;transform:translateY(0);}
         @media(max-width:1024px){.footer-content{grid-template-columns:1fr;gap:2rem;}}
         @media(max-width:768px){.nav-links{position:fixed;top:70px;left:-100%;width:100%;background:rgba(10,14,39,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:2rem;gap:1.5rem;transition:left 0.3s ease;border-bottom:1px solid var(--border);}.nav-links.active{left:0;}.mobile-toggle{display:block;}.page-hero h1{font-size:2.5rem;}.skills-grid{grid-template-columns:1fr;}}
+
+        /* Certificate Lightbox */
+        .cert-card[data-cert]{cursor:pointer;}
+        .cert-card[data-cert]:hover .cert-body h4{color:var(--accent);}
+        .cert-card[data-cert] .cert-body h4::after{content:' 🔍';font-size:0.75rem;opacity:0.6;}
+        .cert-modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:2rem;}
+        .cert-modal-overlay.active{display:flex;}
+        .cert-modal-box{position:relative;max-width:90vw;max-height:90vh;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.6);animation:modalIn 0.3s ease;}
+        @keyframes modalIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+        .cert-modal-box img{display:block;max-width:90vw;max-height:80vh;object-fit:contain;}
+        .cert-modal-header{padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+        .cert-modal-title{font-weight:700;font-size:0.95rem;color:var(--text-primary);}
+        .cert-modal-close{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text-secondary);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;}
+        .cert-modal-close:hover{background:rgba(255,80,80,0.2);border-color:rgba(255,80,80,0.5);color:#ff5050;}
+        .cert-modal-loading{padding:3rem;text-align:center;color:var(--text-muted);font-size:0.9rem;}
+        .cert-modal-error{padding:3rem 2rem;text-align:center;color:#ff6b6b;}
+        .cert-modal-error i{font-size:2.5rem;margin-bottom:1rem;display:block;}
     </style>
 </head>
 <body>
@@ -202,7 +219,7 @@
     <div class="certs-section fade-up">
         <h2>Certifications & Credentials</h2>
         <div class="certs-grid">
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-vcp-dcv.jpg" data-cert-name="VMware Certified Professional — Data Center Virtualization">
                 <div class="cert-icon"><i class="fas fa-award"></i></div>
                 <div class="cert-body">
                     <h4>VMware Certified Professional — Data Center Virtualization</h4>
@@ -210,7 +227,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-vmware-nsx.jpg" data-cert-name="VMware NSX Network Virtualization">
                 <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="cert-body">
                     <h4>VMware NSX Network Virtualization</h4>
@@ -218,7 +235,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-              <div class="cert-card">
+              <div class="cert-card" data-cert="certificates/cert-mcp.jpg" data-cert-name="MCP: Microsoft Certified Professional">
                 <div class="cert-icon"><i class="fab fa-windows"></i></div>
                 <div class="cert-body">
                     <h4>MCP: Microsoft Certified Professional</h4>
@@ -226,7 +243,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-              <div class="cert-card">
+              <div class="cert-card" data-cert="certificates/cert-mta.jpg" data-cert-name="MTA: Microsoft Technology Associate">
                 <div class="cert-icon"><i class="fab fa-windows"></i></div>
                 <div class="cert-body">
                     <h4>MTA: Microsoft Technology Associate</h4>
@@ -234,7 +251,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-az104.jpg" data-cert-name="Microsoft Certified: Azure Administrator Associate (AZ-104)">
                 <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
                 <div class="cert-body">
                     <h4>Microsoft Certified: Azure Administrator Associate (AZ-104)</h4>
@@ -242,7 +259,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-gcp-ace.jpg" data-cert-name="GCP-ACE: Associate Cloud Engineer">
                 <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="cert-body">
                     <h4>GCP-ACE: Associate Cloud Engineer</h4>
@@ -250,7 +267,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-gcp-pca.jpg" data-cert-name="GCP-PCA: Professional Cloud Architect">
                 <div class="cert-icon"><i class="fab fa-windows"></i></div>
                 <div class="cert-body">
                     <h4>GCP-PCA: Professional Cloud Architect</h4>
@@ -258,7 +275,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-aws-clf.jpg" data-cert-name="AWS: Cloud Practitioner (CLF-C02)">
                 <div class="cert-icon"><i class="fab fa-windows"></i></div>
                 <div class="cert-body">
                     <h4>AWS: Cloud Practitioner (CLF-C02)</h4>
@@ -266,7 +283,7 @@
                     <div class="cert-status"><i class="fas fa-check-circle"></i> Certified</div>
                 </div>
             </div>
-            <div class="cert-card">
+            <div class="cert-card" data-cert="certificates/cert-nca6.jpg" data-cert-name="Nutanix: Nutanix Certified Associate (NCA-6)">
                 <div class="cert-icon"><i class="fab fa-windows"></i></div>
                 <div class="cert-body">
                     <h4>Nutanix: Nutanix Certified Associate (NCA-6)</h4>
@@ -285,7 +302,7 @@
             <div class="social-links">
                 <a href="https://linkedin.com" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://github.com" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="mailto:deepakparate8929@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="/cdn-cgi/l/email-protection#e2868787928389928390839687dadbd0dba2858f838b8ecc818d8f" class="social-link"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div class="footer-section">
@@ -299,7 +316,7 @@
         <div class="footer-section">
             <h4>Contact</h4>
             <div class="footer-links">
-                <a href="mailto:deepakparate8929@gmail.com">deepakparate8929@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#5430313124353f2435263520316c6d666d143339353d387a373b39"><span class="__cf_email__" data-cfemail="6f0b0a0a1f0e041f0e1d0e1b0a57565d562f08020e0603410c0002">[email&#160;protected]</span></a>
                 <a href="tel:+918866418929">+91 8866418929</a>
             </div>
         </div>
@@ -307,7 +324,20 @@
     <div class="footer-bottom"><p>&copy; 2026 Deepak Parate. All rights reserved.</p></div>
 </footer>
 
-<script>
+<!-- Certificate Lightbox Modal -->
+<div class="cert-modal-overlay" id="certModal">
+    <div class="cert-modal-box" id="certModalBox">
+        <div class="cert-modal-header">
+            <span class="cert-modal-title" id="certModalTitle"></span>
+            <button class="cert-modal-close" id="certModalClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="certModalBody">
+            <div class="cert-modal-loading"><i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:0.5rem;display:block;color:var(--accent)"></i>Loading certificate...</div>
+        </div>
+    </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
     document.getElementById('mobileToggle').addEventListener('click', function() {
@@ -322,13 +352,65 @@
                 entry.target.querySelectorAll('.skill-progress').forEach(bar => {
                     const w = bar.getAttribute('data-width');
                     setTimeout(() => { bar.style.width = w + '%'; }, 100);
-                });
-                entry.target.classList.add('visible');
+                 });
                 skillObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.skill-cat, .fade-up').forEach(el => skillObserver.observe(el));
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.skill-cat').forEach(el => skillObserver.observe(el));
+
+    // Fade-up animation observer
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+    // ── Certificate Lightbox ──────────────────────────────────────────
+    const modal        = document.getElementById('certModal');
+    const modalTitle   = document.getElementById('certModalTitle');
+    const modalBody    = document.getElementById('certModalBody');
+    const modalClose   = document.getElementById('certModalClose');
+
+    function openCertModal(certFile, certName) {
+        modalTitle.textContent = certName;
+        modalBody.innerHTML = `<div class="cert-modal-loading"><i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:0.5rem;display:block;color:var(--accent)"></i>Loading certificate...</div>`;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        const img = new Image();
+        img.onload = () => {
+            modalBody.innerHTML = '';
+            modalBody.appendChild(img);
+        };
+        img.onerror = () => {
+            modalBody.innerHTML = `<div class="cert-modal-error"><i class="fas fa-exclamation-triangle"></i><strong>${certName}</strong><br><small style="color:var(--text-muted);margin-top:0.5rem;display:block">Image not found: <code>${certFile}</code><br>Make sure the JPG is in the same folder as this HTML file.</small></div>`;
+        };
+        img.src = certFile;
+        img.alt = certName;
+        img.style.cssText = 'display:block;max-width:90vw;max-height:80vh;object-fit:contain;';
+    }
+
+    function closeCertModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Click on cert cards
+    document.querySelectorAll('.cert-card[data-cert]').forEach(card => {
+        card.addEventListener('click', () => {
+            openCertModal(card.dataset.cert, card.dataset.certName);
+        });
+    });
+
+    // Close handlers
+    modalClose.addEventListener('click', closeCertModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeCertModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCertModal(); });
 </script>
 </body>
 </html>
