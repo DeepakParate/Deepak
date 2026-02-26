@@ -41,6 +41,8 @@
         .cat-tab:hover{color:var(--text-primary);border-color:rgba(0,212,255,0.3);}
         .cat-tab.active{background:linear-gradient(135deg,rgba(0,102,204,0.25),rgba(0,212,255,0.1));border-color:var(--accent);color:var(--accent);}
         .cat-tab.active .count{background:rgba(0,212,255,0.15);}
+        .cat-tab[data-target="linux"].active{background:linear-gradient(135deg,rgba(185,28,28,0.25),rgba(255,68,68,0.1));border-color:#ff4444;color:#ff4444;}
+        .cat-tab[data-target="linux"].active .count{background:rgba(255,68,68,0.15);}
 
         /* ── Category Sections ── */
         .page-content{padding:0 5% 6rem;max-width:1400px;margin:0 auto;}
@@ -54,8 +56,8 @@
         /* Category accent colors */
         .win .section-icon{background:rgba(0,120,212,0.15);color:#0078d4;border:1px solid rgba(0,120,212,0.3);}
         .win .section-header h2{color:#5bb8ff;}
-        .linux .section-icon{background:rgba(255,165,0,0.12);color:#ffa500;border:1px solid rgba(255,165,0,0.3);}
-        .linux .section-header h2{color:#ffbb44;}
+        .linux .section-icon{background:rgba(220,30,30,0.12);color:#e03030;border:1px solid rgba(220,30,30,0.35);}
+        .linux .section-header h2{color:#ff4444;}
         .vmware .section-icon{background:rgba(96,189,62,0.12);color:#60bd3e;border:1px solid rgba(96,189,62,0.3);}
         .vmware .section-header h2{color:#80d460;}
         .nutanix .section-icon{background:rgba(0,168,225,0.12);color:#00a8e1;border:1px solid rgba(0,168,225,0.3);}
@@ -74,7 +76,7 @@
         .sop-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.8rem;transition:all 0.3s ease;position:relative;overflow:hidden;}
         .sop-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:linear-gradient(180deg,var(--accent),var(--primary));transition:height 0.4s ease;}
         .win .sop-card::before{background:linear-gradient(180deg,#5bb8ff,#0066cc);}
-        .linux .sop-card::before{background:linear-gradient(180deg,#ffbb44,#ff7700);}
+        .linux .sop-card::before{background:linear-gradient(180deg,#ff4444,#1a0000);}
         .vmware .sop-card::before{background:linear-gradient(180deg,#80d460,#3a8f1f);}
         .nutanix .sop-card::before{background:linear-gradient(180deg,#33bce8,#0077aa);}
         .aws .sop-card::before{background:linear-gradient(180deg,#ffb347,#e07b00);}
@@ -86,7 +88,7 @@
         .sop-steps{display:none;}
         .sop-icon{width:48px;height:48px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--accent);}
         .win .sop-icon{background:rgba(0,120,212,0.12);border-color:rgba(0,120,212,0.3);color:#5bb8ff;}
-        .linux .sop-icon{background:rgba(255,165,0,0.1);border-color:rgba(255,165,0,0.3);color:#ffa500;}
+        .linux .sop-icon{background:rgba(220,30,30,0.12);border-color:rgba(220,30,30,0.35);color:#e03030;}
         .vmware .sop-icon{background:rgba(96,189,62,0.1);border-color:rgba(96,189,62,0.3);color:#60bd3e;}
         .nutanix .sop-icon{background:rgba(0,168,225,0.1);border-color:rgba(0,168,225,0.3);color:#00a8e1;}
         .aws .sop-icon{background:rgba(255,153,0,0.1);border-color:rgba(255,153,0,0.3);color:#ff9900;}
@@ -98,7 +100,7 @@
         .sop-step{counter-increment:step-counter;margin-bottom:1rem;padding-left:2.5rem;position:relative;color:var(--text-secondary);line-height:1.6;font-size:0.9rem;}
         .sop-step::before{content:counter(step-counter);position:absolute;left:0;top:0;width:26px;height:26px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;font-family:'JetBrains Mono',monospace;color:white;}
         .win .sop-step::before{background:#0066cc;}
-        .linux .sop-step::before{background:#cc6600;}
+        .linux .sop-step::before{background:#b91c1c;}
         .vmware .sop-step::before{background:#3a8f1f;}
         .nutanix .sop-step::before{background:#0077aa;}
         .aws .sop-step::before{background:#cc7700;}
@@ -115,8 +117,8 @@
         .sop-card:hover .sop-step-badge{color:var(--accent);border-color:rgba(0,212,255,0.3);background:rgba(0,212,255,0.07);}
         .win .sop-card:hover .sop-arrow{background:rgba(0,120,212,0.18);border-color:rgba(91,184,255,0.5);color:#5bb8ff;}
         .win .sop-card:hover .sop-step-badge{color:#5bb8ff;border-color:rgba(91,184,255,0.3);}
-        .linux .sop-card:hover .sop-arrow{background:rgba(255,165,0,0.15);border-color:rgba(255,187,68,0.5);color:#ffbb44;}
-        .linux .sop-card:hover .sop-step-badge{color:#ffbb44;border-color:rgba(255,187,68,0.3);}
+        .linux .sop-card:hover .sop-arrow{background:rgba(220,30,30,0.18);border-color:rgba(255,68,68,0.55);color:#ff4444;}
+        .linux .sop-card:hover .sop-step-badge{color:#ff4444;border-color:rgba(255,68,68,0.35);}
         .vmware .sop-card:hover .sop-arrow{background:rgba(96,189,62,0.15);border-color:rgba(128,212,96,0.5);color:#80d460;}
         .vmware .sop-card:hover .sop-step-badge{color:#80d460;border-color:rgba(128,212,96,0.3);}
         .nutanix .sop-card:hover .sop-arrow{background:rgba(0,168,225,0.15);border-color:rgba(51,188,232,0.5);color:#33bce8;}
@@ -157,8 +159,8 @@
         /* Colour-theme the modal step numbers per category */
         .modal-box.win .modal-step-num{background:#0066cc;}
         .modal-box.win .modal-icon{background:rgba(0,120,212,0.15);border:1px solid rgba(0,120,212,0.35);color:#5bb8ff;}
-        .modal-box.linux .modal-step-num{background:#cc6600;}
-        .modal-box.linux .modal-icon{background:rgba(255,165,0,0.12);border:1px solid rgba(255,165,0,0.35);color:#ffa500;}
+        .modal-box.linux .modal-step-num{background:#b91c1c;}
+        .modal-box.linux .modal-icon{background:rgba(220,30,30,0.14);border:1px solid rgba(220,30,30,0.4);color:#e03030;}
         .modal-box.vmware .modal-step-num{background:#3a8f1f;}
         .modal-box.vmware .modal-icon{background:rgba(96,189,62,0.12);border:1px solid rgba(96,189,62,0.35);color:#60bd3e;}
         .modal-box.nutanix .modal-step-num{background:#0077aa;}
