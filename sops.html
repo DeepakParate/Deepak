@@ -211,13 +211,13 @@
             <i class="fas fa-layer-group"></i> VMware <span class="count">11</span>
         </button>
         <button class="cat-tab" data-target="windows">
-            <i class="fab fa-windows"></i> Windows <span class="count">2</span>
+            <i class="fab fa-windows"></i> Windows <span class="count">5</span>
         </button>
         <button class="cat-tab" data-target="linux">
-            <i class="fab fa-linux"></i> Linux <span class="count">3</span>
+            <i class="fab fa-linux"></i> Linux <span class="count">5</span>
         </button>
         <button class="cat-tab" data-target="aws">
-            <i class="fab fa-aws"></i> AWS <span class="count">0</span>
+            <i class="fab fa-aws"></i> AWS <span class="count">11</span>
         </button>
         <button class="cat-tab" data-target="gcp">
             <i class="fab fa-google"></i> GCP <span class="count">0</span>
@@ -447,6 +447,64 @@
                 </ol>
             </div>
 
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-sitemap"></i></div>
+                    <div class="sop-title-wrap"><h3>Windows Server Active Directory Setup</h3><div class="sop-category">Windows · Active Directory</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Prerequisites:</strong> Assign a static IP to the server, set a proper hostname via System Properties, and ensure DNS is pointing to itself (127.0.0.1) before promoting to a Domain Controller</li>
+                    <li class="sop-step"><strong>Install AD DS Role:</strong> Open Server Manager → Add Roles and Features → select Active Directory Domain Services → include management tools → install and wait for completion</li>
+                    <li class="sop-step"><strong>Promote to Domain Controller:</strong> Click the notification flag in Server Manager → Promote this server to a domain controller; choose Add a new forest and enter your root domain name (e.g. corp.local)</li>
+                    <li class="sop-step"><strong>Configure Forest &amp; Domain:</strong> Set Forest and Domain functional levels (Windows Server 2016 or higher recommended); set the Directory Services Restore Mode (DSRM) password and store it securely</li>
+                    <li class="sop-step"><strong>DNS &amp; NetBIOS:</strong> Verify the DNS delegation warning (expected on new forests); confirm the NetBIOS domain name is auto-populated; ensure DNS role is installed alongside AD DS on the same server</li>
+                    <li class="sop-step"><strong>Prerequisites Check &amp; Install:</strong> Let the wizard run the prerequisites check; resolve any warnings, then click Install — the server will reboot automatically to complete promotion</li>
+                    <li class="sop-step"><strong>Verify AD DS:</strong> After reboot, open Active Directory Users and Computers (ADUC) and DNS Manager; confirm the domain and default OUs (Computers, Users, Domain Controllers) are present</li>
+                    <li class="sop-step"><strong>Create OUs &amp; Users:</strong> In ADUC, right-click the domain → New → Organizational Unit; create OUs for departments; add users with <code>New-ADUser</code> in PowerShell or via the ADUC GUI</li>
+                    <li class="sop-step"><strong>Join Clients to Domain:</strong> On client machines, set DNS to the DC's IP → System Properties → Change → enter domain name → provide Domain Admin credentials → reboot to complete domain join</li>
+                    <li class="sop-step"><strong>Group Policy Basics:</strong> Open Group Policy Management Console (GPMC); link a new GPO to the domain or an OU; configure password policies, logon banners, and software restrictions; run <code>gpupdate /force</code> to apply immediately</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-globe"></i></div>
+                    <div class="sop-title-wrap"><h3>Install &amp; Configure IIS</h3><div class="sop-category">Windows · Web Server</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Install IIS Role:</strong> Open Server Manager → Add Roles and Features → select Web Server (IIS); include sub-features: Static Content, Default Document, HTTP Errors, ASP.NET, Windows Authentication, and Request Filtering</li>
+                    <li class="sop-step"><strong>Install via PowerShell:</strong> Alternatively run <code>Install-WindowsFeature -Name Web-Server -IncludeManagementTools</code>; add ASP.NET with <code>Install-WindowsFeature Web-Asp-Net45</code></li>
+                    <li class="sop-step"><strong>Verify Default Site:</strong> Open a browser and navigate to <code>http://localhost</code>; you should see the IIS default welcome page confirming the service is running</li>
+                    <li class="sop-step"><strong>Create a New Website:</strong> Open IIS Manager → expand server node → right-click Sites → Add Website; set site name, physical path (e.g. C:\inetpub\mysite), binding (IP, port, hostname)</li>
+                    <li class="sop-step"><strong>Configure Application Pool:</strong> In IIS Manager → Application Pools → select or create a pool; set .NET CLR version and managed pipeline mode (Integrated); assign the site to the correct app pool</li>
+                    <li class="sop-step"><strong>Set Directory Permissions:</strong> Grant the app pool identity (IIS AppPool\PoolName) Read &amp; Execute permissions on the site's physical folder via File Explorer or <code>icacls</code></li>
+                    <li class="sop-step"><strong>Configure SSL/HTTPS:</strong> Import or request an SSL certificate via IIS Manager → Server Certificates; bind the certificate to the site on port 443; add an HTTP to HTTPS redirect rule via the URL Rewrite module</li>
+                    <li class="sop-step"><strong>Enable Windows Authentication:</strong> In IIS Manager → select site → Authentication; disable Anonymous Authentication and enable Windows Authentication for intranet apps requiring AD credentials</li>
+                    <li class="sop-step"><strong>Configure Logging:</strong> In IIS Manager → Logging; set log file format (W3C), log directory, and rollover schedule; logs are stored in <code>C:\inetpub\logs\LogFiles</code> by default</li>
+                    <li class="sop-step"><strong>Test &amp; Monitor:</strong> Browse to the new site URL; use Failed Request Tracing for debugging 4xx/5xx errors; monitor performance counters via Performance Monitor or enable Application Insights for detailed telemetry</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-database"></i></div>
+                    <div class="sop-title-wrap"><h3>Windows Backup &amp; Recovery Procedure</h3><div class="sop-category">Windows · Disaster Recovery</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Install Windows Server Backup:</strong> Open Server Manager → Add Features → select Windows Server Backup; or run <code>Install-WindowsFeature Windows-Server-Backup</code> in PowerShell</li>
+                    <li class="sop-step"><strong>Plan Backup Strategy:</strong> Define RPO (Recovery Point Objective) and RTO (Recovery Time Objective); decide between Full Server backup, System State backup, or volume-level backup based on recovery requirements</li>
+                    <li class="sop-step"><strong>Configure Scheduled Backup:</strong> Open Windows Server Backup → Backup Schedule → Full Server or Custom; select backup destination (dedicated disk, network share, or remote volume); set daily or multiple-times-per-day schedule</li>
+                    <li class="sop-step"><strong>One-Time Backup:</strong> Use Backup Once for ad-hoc backups before patching or major changes; select Different Options to customise volumes and destination on the fly</li>
+                    <li class="sop-step"><strong>System State Backup:</strong> Run <code>wbadmin start systemstatebackup -backupTarget:&lt;drive&gt;</code> to back up AD DS, registry, SYSVOL, COM+ database, and boot files — critical for Domain Controller recovery</li>
+                    <li class="sop-step"><strong>Backup Verification:</strong> After each backup, check the Windows Server Backup event log (Event ID 4, 8, 14) for success/failure; periodically perform test restores to a lab environment to validate backup integrity</li>
+                    <li class="sop-step"><strong>File &amp; Folder Recovery:</strong> Open Windows Server Backup → Recover → select backup date → Files and Folders; browse to the desired path and restore to original or alternate location</li>
+                    <li class="sop-step"><strong>Bare Metal Recovery:</strong> Boot from Windows Server installation media → Repair your computer → Troubleshoot → System Image Recovery; point to the backup location and follow the wizard to restore the full server image</li>
+                    <li class="sop-step"><strong>Active Directory Recovery:</strong> For AD restore, reboot DC into DSRM (F8 at boot); run <code>wbadmin start systemstaterecovery</code>; for authoritative restore of deleted objects use <code>ntdsutil</code> after non-authoritative restore completes</li>
+                    <li class="sop-step"><strong>Offsite &amp; Cloud Backup:</strong> Configure Azure Backup (MARS Agent) for offsite copies — install the agent, register the vault, define backup policy and retention; verify recovery point creation in the Azure Recovery Services Vault portal</li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -512,6 +570,45 @@
                 </ol>
             </div>
 
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-box-open"></i></div>
+                    <div class="sop-title-wrap"><h3>Install &amp; Configure YUM</h3><div class="sop-category">Linux · Package Management</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Check Existing YUM:</strong> Verify if YUM is already installed by running <code>yum --version</code>; YUM is pre-installed on RHEL, CentOS 7, and Amazon Linux — if found, proceed to configuration steps</li>
+                    <li class="sop-step"><strong>Install YUM (if missing):</strong> On minimal installs, run <code>sudo rpm -ivh yum-*.rpm</code> using the RPM from your distro's ISO, or bootstrap with <code>sudo dnf install yum -y</code> on RHEL 8/9 where DNF is the default</li>
+                    <li class="sop-step"><strong>Verify Package Manager:</strong> Confirm installation with <code>which yum</code> (should return <code>/usr/bin/yum</code>) and check version details via <code>yum --version</code></li>
+                    <li class="sop-step"><strong>Configure YUM Repos:</strong> Repo files live in <code>/etc/yum.repos.d/</code>; each <code>.repo</code> file defines a repository with <code>[repo-id]</code>, <code>name</code>, <code>baseurl</code> or <code>mirrorlist</code>, and <code>enabled=1</code> / <code>gpgcheck=1</code></li>
+                    <li class="sop-step"><strong>Add EPEL Repository:</strong> Install Extra Packages for Enterprise Linux with <code>sudo yum install epel-release -y</code>; this unlocks thousands of additional packages not in the base repo</li>
+                    <li class="sop-step"><strong>Clean &amp; Rebuild Cache:</strong> Run <code>sudo yum clean all</code> to remove cached metadata, then <code>sudo yum makecache</code> to rebuild the local package index from all enabled repos</li>
+                    <li class="sop-step"><strong>Update System:</strong> Apply all available updates with <code>sudo yum update -y</code>; use <code>sudo yum update &lt;package-name&gt;</code> to update a specific package only</li>
+                    <li class="sop-step"><strong>Install &amp; Remove Packages:</strong> Install with <code>sudo yum install &lt;package&gt; -y</code>; remove with <code>sudo yum remove &lt;package&gt; -y</code>; use <code>sudo yum reinstall &lt;package&gt;</code> to fix corrupted installs</li>
+                    <li class="sop-step"><strong>Search &amp; Info:</strong> Search available packages with <code>yum search &lt;keyword&gt;</code>; inspect package details (version, dependencies, size) with <code>yum info &lt;package&gt;</code> before installing</li>
+                    <li class="sop-step"><strong>YUM Groups &amp; History:</strong> Install predefined software groups with <code>sudo yum groupinstall "Development Tools" -y</code>; review and roll back transactions using <code>yum history list</code> and <code>yum history undo &lt;id&gt;</code></li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-globe"></i></div>
+                    <div class="sop-title-wrap"><h3>Install &amp; Configure Nginx</h3><div class="sop-category">Linux · Web Server</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Update Packages:</strong> Run <code>sudo apt update &amp;&amp; sudo apt upgrade -y</code> (Debian/Ubuntu) or <code>sudo dnf update -y</code> (RHEL/CentOS) to ensure the package list is current</li>
+                    <li class="sop-step"><strong>Install Nginx:</strong> Run <code>sudo apt install nginx -y</code> (Debian/Ubuntu) or <code>sudo dnf install nginx -y</code> (RHEL/CentOS); verify with <code>nginx -v</code></li>
+                    <li class="sop-step"><strong>Start &amp; Enable Service:</strong> Run <code>sudo systemctl start nginx</code> and <code>sudo systemctl enable nginx</code> to start Nginx and persist it across reboots</li>
+                    <li class="sop-step"><strong>Configure Firewall:</strong> Allow HTTP/HTTPS traffic — <code>sudo ufw allow 'Nginx Full'</code> (UFW) or <code>sudo firewall-cmd --permanent --add-service=http --add-service=https &amp;&amp; sudo firewall-cmd --reload</code> (firewalld)</li>
+                    <li class="sop-step"><strong>Verify Default Page:</strong> Open a browser and navigate to the server's IP (e.g. <code>http://&lt;server-ip&gt;</code>); you should see the default Nginx welcome page</li>
+                    <li class="sop-step"><strong>Create Server Block:</strong> Create <code>/etc/nginx/sites-available/yourdomain.com</code> with a server block defining <code>listen 80</code>, <code>server_name</code>, and <code>root</code> / <code>index</code> directives</li>
+                    <li class="sop-step"><strong>Enable Site:</strong> Symlink the config — <code>sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/</code>; test with <code>sudo nginx -t</code> before reloading</li>
+                    <li class="sop-step"><strong>Reload Nginx:</strong> Apply changes with <code>sudo systemctl reload nginx</code>; use <code>sudo systemctl status nginx</code> to confirm the service is active and running without errors</li>
+                    <li class="sop-step"><strong>Configure SSL (Optional):</strong> Install Certbot — <code>sudo apt install certbot python3-certbot-nginx -y</code>; obtain a free Let's Encrypt cert with <code>sudo certbot --nginx -d yourdomain.com</code></li>
+                    <li class="sop-step"><strong>Log Monitoring:</strong> Check access logs at <code>/var/log/nginx/access.log</code> and error logs at <code>/var/log/nginx/error.log</code>; use <code>sudo tail -f /var/log/nginx/error.log</code> for real-time debugging</li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -524,10 +621,219 @@
                 <p>Amazon Web Services infrastructure, EC2, VPC, IAM, and cloud operations</p>
             </div>
         </div>
-        <div class="empty-state">
-            <i class="fab fa-aws"></i>
-            <h3>No AWS SOPs yet</h3>
-            <p>AWS procedures will be added here — covering EC2, S3, VPC, IAM, CloudFormation, and more.</p>
+        <div class="sops-grid">
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="sop-title-wrap"><h3>IAM User &amp; Role Management</h3><div class="sop-category">AWS · Security</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Access IAM Console:</strong> Log in to AWS Console → search IAM; note that IAM is a global service — changes apply across all regions; never use the root account for daily operations</li>
+                    <li class="sop-step"><strong>Create IAM User:</strong> IAM → Users → Add Users; set a username, choose credential type (Console password and/or Programmatic access); enable MFA immediately after creation for all human users</li>
+                    <li class="sop-step"><strong>Assign Permissions:</strong> Attach permissions via managed policies (e.g. AmazonS3ReadOnlyAccess), inline policies, or group membership; always follow the principle of least privilege — grant only what the user needs</li>
+                    <li class="sop-step"><strong>Create IAM Groups:</strong> IAM → User Groups → Create Group; attach relevant policies to the group; assign users to groups rather than attaching policies directly — simplifies permission management at scale</li>
+                    <li class="sop-step"><strong>Create IAM Role:</strong> IAM → Roles → Create Role; select trusted entity type (AWS Service, another account, or Web Identity); common use: EC2 role to access S3 without embedding access keys in code</li>
+                    <li class="sop-step"><strong>Attach Role to Service:</strong> For EC2, go to Instances → Actions → Security → Modify IAM Role; select the role; for Lambda, assign the execution role during function creation or via Configuration → Permissions</li>
+                    <li class="sop-step"><strong>Create Custom Policy:</strong> IAM → Policies → Create Policy; use the Visual Editor or JSON to define Effect (Allow/Deny), Actions (e.g. s3:GetObject), and Resources (specific ARN or wildcard); version and review before attaching</li>
+                    <li class="sop-step"><strong>Enable MFA:</strong> IAM → Users → select user → Security Credentials → Assign MFA Device; choose Virtual MFA (Google Authenticator / Authy), hardware token, or U2F key; enforce MFA via SCP or IAM condition keys</li>
+                    <li class="sop-step"><strong>Generate Access Keys:</strong> IAM → Users → Security Credentials → Create Access Key; download the CSV immediately — secret key is shown only once; rotate keys every 90 days and deactivate unused keys promptly</li>
+                    <li class="sop-step"><strong>Audit with IAM Credential Report:</strong> IAM → Credential Report → Download; review last-used dates, MFA status, and key age; use IAM Access Analyzer to identify over-permissive policies and external resource access</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-desktop"></i></div>
+                    <div class="sop-title-wrap"><h3>Create EC2 Instance</h3><div class="sop-category">AWS · Compute</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Sign in to AWS Console:</strong> Navigate to console.aws.amazon.com, sign in with your IAM credentials, and ensure you are in the correct region (top-right region selector) before creating the instance — resources are region-specific</li>
+                    <li class="sop-step"><strong>Open EC2 Dashboard:</strong> Search for EC2 in the services menu → click EC2 → on the Dashboard click Launch Instance; review running instance count and limits before proceeding to avoid hitting service quotas</li>
+                    <li class="sop-step"><strong>Name &amp; Tags:</strong> Enter a meaningful instance name and add resource tags — at minimum set Name, Environment (dev/staging/prod), Owner, and CostCenter; tags are critical for billing visibility, automation, and governance at scale</li>
+                    <li class="sop-step"><strong>Choose Amazon Machine Image (AMI):</strong> Select from Quick Start (Amazon Linux 2023, Ubuntu, Windows), My AMIs (custom golden images), or AWS Marketplace; prefer the latest AWS-maintained AMIs for up-to-date security patches and compatibility</li>
+                    <li class="sop-step"><strong>Select Instance Type:</strong> Choose based on workload requirements — t3.micro/t3.small for dev/test, t3.medium for light production, m6i.large for general-purpose, c6i for compute-heavy, r6i for memory-intensive; use the Compare Instance Types link to evaluate options</li>
+                    <li class="sop-step"><strong>Set Up Key Pair:</strong> Select an existing key pair or create a new one; download the .pem file and store it securely (chmod 400 on Linux); this is the only authentication method for SSH — loss of the key means loss of direct instance access</li>
+                    <li class="sop-step"><strong>Configure Network:</strong> Select your VPC and the appropriate subnet (public subnet for internet-accessible instances, private for backend); enable Auto-assign Public IP only for internet-facing instances; select or create a Security Group with least-privilege inbound rules</li>
+                    <li class="sop-step"><strong>Configure Storage:</strong> Set the root EBS volume size (minimum 20 GB recommended for production); choose gp3 volume type for best price-performance; enable Delete on Termination only for non-persistent data; enable EBS encryption with a KMS key for all sensitive workloads</li>
+                    <li class="sop-step"><strong>Advanced Details:</strong> Assign an IAM Instance Profile for AWS service access (S3, SSM, CloudWatch); optionally add User Data script for bootstrapping (install packages, configure services at first boot); set Termination Protection to enabled for production instances</li>
+                    <li class="sop-step"><strong>Review &amp; Launch:</strong> Verify all settings in the Summary panel — AMI, instance type, key pair, VPC, subnet, security group, and storage; click Launch Instance and wait for status checks to show 2/2 passed before connecting or deploying applications</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-server"></i></div>
+                    <div class="sop-title-wrap"><h3>Launch an EC2 Instance</h3><div class="sop-category">AWS · Compute</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Open EC2 Console:</strong> Log in to AWS Console → EC2 → Launch Instance; choose a descriptive Name tag — critical for identifying instances in large environments</li>
+                    <li class="sop-step"><strong>Select AMI:</strong> Choose an Amazon Machine Image — Amazon Linux 2023 for general workloads, Ubuntu 22.04 LTS for dev/web servers, Windows Server 2022 for .NET apps; prefer AWS-maintained AMIs for patched baselines</li>
+                    <li class="sop-step"><strong>Choose Instance Type:</strong> Select instance family based on workload — t3/t4g (burstable, dev/test), m6i (general purpose), c6i (compute-intensive), r6i (memory-intensive); check vCPU and RAM against your requirements</li>
+                    <li class="sop-step"><strong>Configure Key Pair:</strong> Create or select an existing key pair (.pem for Linux SSH, .ppk for PuTTY); store the private key securely — AWS does not retain a copy; without it, Linux instance access is lost permanently</li>
+                    <li class="sop-step"><strong>Network Settings:</strong> Select the VPC and subnet (public for internet-facing, private for internal); enable Auto-assign Public IP for public instances; create or assign a Security Group with required inbound rules (SSH 22, HTTP 80, HTTPS 443)</li>
+                    <li class="sop-step"><strong>Configure Storage:</strong> Set root EBS volume size (default 8 GB for Amazon Linux — increase to 20-30 GB for production); select gp3 for cost-effective SSD performance; enable encryption using AWS KMS key</li>
+                    <li class="sop-step"><strong>Add User Data (Optional):</strong> Scroll to Advanced Details → User Data; paste a bootstrap script (e.g. install Nginx on first boot); script runs as root at launch — use for automated software installation and configuration</li>
+                    <li class="sop-step"><strong>Assign IAM Role:</strong> Under Advanced Details → IAM Instance Profile, attach a role granting the instance access to AWS services (S3, SSM, CloudWatch) without storing credentials on the instance</li>
+                    <li class="sop-step"><strong>Launch &amp; Connect:</strong> Review summary and click Launch Instance; wait for Instance State to show Running and Status Checks to pass 2/2; connect via EC2 Instance Connect, SSH with key pair, or AWS Systems Manager Session Manager</li>
+                    <li class="sop-step"><strong>Post-Launch Validation:</strong> Verify connectivity, install updates, confirm attached IAM role permissions, set up CloudWatch agent for metrics and logs, and add Name/Environment/Owner tags for governance</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-database"></i></div>
+                    <div class="sop-title-wrap"><h3>S3 Bucket Setup &amp; Policy Configuration</h3><div class="sop-category">AWS · Storage</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Create S3 Bucket:</strong> AWS Console → S3 → Create Bucket; choose a globally unique name (lowercase, hyphens allowed); select the AWS Region closest to your users or application; bucket names cannot be changed after creation</li>
+                    <li class="sop-step"><strong>Block Public Access:</strong> By default all public access is blocked — keep this enabled for private data; only disable specific settings if hosting a static website or requiring public object access; document any exceptions</li>
+                    <li class="sop-step"><strong>Enable Versioning:</strong> Bucket Properties → Versioning → Enable; versioning protects against accidental deletion and overwrites; once enabled it can only be suspended, not disabled; combine with lifecycle rules to control storage costs</li>
+                    <li class="sop-step"><strong>Enable Encryption:</strong> Properties → Default Encryption → Enable; choose SSE-S3 (AWS-managed keys, free) or SSE-KMS (customer-managed keys via AWS KMS, additional cost but audit trail); enforce encryption via bucket policy denying unencrypted uploads</li>
+                    <li class="sop-step"><strong>Configure Bucket Policy:</strong> Permissions → Bucket Policy → Policy Editor; write JSON policy granting or denying access by Principal (IAM user/role/account), Action (s3:GetObject, s3:PutObject), and Resource (specific bucket ARN or prefix)</li>
+                    <li class="sop-step"><strong>Static Website Hosting:</strong> Properties → Static Website Hosting → Enable; set index document (index.html) and error document (error.html); disable Block Public Access and add a bucket policy allowing s3:GetObject for all principals</li>
+                    <li class="sop-step"><strong>Set Up Lifecycle Rules:</strong> Management → Lifecycle Rules → Create; transition objects to S3 Standard-IA after 30 days, Glacier after 90 days, and expire (delete) after 365 days; apply to entire bucket or a specific prefix/tag</li>
+                    <li class="sop-step"><strong>Enable Access Logging:</strong> Properties → Server Access Logging → Enable; specify a target bucket (separate from source) and prefix; logs capture requester, bucket, request time, action, response status — essential for auditing and troubleshooting</li>
+                    <li class="sop-step"><strong>Configure CORS (if needed):</strong> Permissions → CORS → Edit; add a JSON rule defining AllowedOrigins, AllowedMethods (GET, PUT), and AllowedHeaders; required when a web app on a different domain reads or writes S3 objects directly</li>
+                    <li class="sop-step"><strong>Test &amp; Validate:</strong> Upload a test object and verify access using the S3 Console or AWS CLI (aws s3 cp file.txt s3://bucket-name/); confirm bucket policy restrictions with the IAM Policy Simulator before production use</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-network-wired"></i></div>
+                    <div class="sop-title-wrap"><h3>Create &amp; Configure a VPC</h3><div class="sop-category">AWS · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Plan CIDR Block:</strong> Design your IP address space before creating — use a /16 block (e.g. 10.0.0.0/16 = 65,536 IPs) for flexibility; avoid overlapping with on-premises ranges if VPN/Direct Connect is planned; document subnet allocation upfront</li>
+                    <li class="sop-step"><strong>Create the VPC:</strong> AWS Console → VPC → Your VPCs → Create VPC; enter name tag and IPv4 CIDR block; enable DNS Resolution and DNS Hostnames — required for services like RDS and ECS to resolve correctly</li>
+                    <li class="sop-step"><strong>Create Subnets:</strong> VPC → Subnets → Create Subnet; create at least one public subnet (e.g. 10.0.1.0/24) and one private subnet (e.g. 10.0.2.0/24) per Availability Zone; distribute across 2-3 AZs for high availability</li>
+                    <li class="sop-step"><strong>Create &amp; Attach Internet Gateway:</strong> VPC → Internet Gateways → Create IGW → name it and attach to your VPC; one IGW per VPC; the IGW enables outbound internet access for public subnets and inbound access for internet-facing resources</li>
+                    <li class="sop-step"><strong>Configure Route Tables:</strong> Create a Public Route Table — add a route 0.0.0.0/0 pointing to the IGW and associate public subnets; leave the Private Route Table with local route only; private subnets route internet traffic through a NAT Gateway instead</li>
+                    <li class="sop-step"><strong>Deploy NAT Gateway:</strong> VPC → NAT Gateways → Create; place it in a public subnet and allocate an Elastic IP; update the private route table with 0.0.0.0/0 pointing to the NAT Gateway; deploy one NAT GW per AZ for high availability</li>
+                    <li class="sop-step"><strong>Configure Security Groups:</strong> VPC → Security Groups → Create; define inbound rules (e.g. allow HTTPS 443 from 0.0.0.0/0 for web tier, allow 3306 from app-sg for DB tier); security groups are stateful — return traffic is allowed automatically</li>
+                    <li class="sop-step"><strong>Configure Network ACLs:</strong> VPC → Network ACLs → Edit inbound/outbound rules; NACLs are stateless — you must explicitly allow both inbound and outbound for each flow; use NACLs as a subnet-level firewall for coarse-grained traffic control</li>
+                    <li class="sop-step"><strong>Enable VPC Flow Logs:</strong> VPC → select VPC → Flow Logs → Create; publish to CloudWatch Logs or S3; capture ACCEPT/REJECT traffic at VPC, subnet, or ENI level; essential for security auditing, troubleshooting, and compliance requirements</li>
+                    <li class="sop-step"><strong>Validate Connectivity:</strong> Launch test EC2 instances in public and private subnets; verify public instance reaches internet via IGW; verify private instance reaches internet via NAT GW; test inter-subnet communication and confirm Security Group rules behave as expected</li>
+                </ol>
+            </div>
+
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-route"></i></div>
+                    <div class="sop-title-wrap"><h3>Route 53 DNS Management</h3><div class="sop-category">AWS · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Access Route 53 Console:</strong> Log in to AWS Console → search Route 53; note that Route 53 is a global service — hosted zones and records are not region-specific; ensure your IAM user has the AmazonRoute53FullAccess policy attached</li>
+                    <li class="sop-step"><strong>Register or Transfer a Domain:</strong> Route 53 → Registered Domains → Register Domain; search for your desired domain name, add to cart, and complete registration; for existing domains, choose Transfer Domain and follow the registrar unlock and auth-code process</li>
+                    <li class="sop-step"><strong>Create a Hosted Zone:</strong> Route 53 → Hosted Zones → Create Hosted Zone; enter your domain name and choose Public (internet-facing) or Private (internal VPC resolution); AWS automatically creates SOA and NS records — note the 4 Name Servers assigned</li>
+                    <li class="sop-step"><strong>Update Name Servers:</strong> If your domain is registered outside AWS, log in to your registrar (GoDaddy, Namecheap, etc.) and replace the default name servers with the 4 Route 53 NS values; DNS propagation typically takes 24–48 hours globally</li>
+                    <li class="sop-step"><strong>Create DNS Records:</strong> Inside the Hosted Zone → Create Record; add an A record pointing your root domain to an IP or load balancer, a CNAME for subdomains (e.g. www → yourdomain.com), MX records for email routing, and TXT records for domain verification (SPF, DKIM)</li>
+                    <li class="sop-step"><strong>Configure Alias Records:</strong> Use Alias records (Route 53-specific) instead of CNAMEs for root domains; Alias records can point directly to AWS resources — Application Load Balancers, CloudFront distributions, S3 static websites, and API Gateway endpoints — with no extra charge for queries</li>
+                    <li class="sop-step"><strong>Set Up Routing Policies:</strong> Choose a routing policy per record — Simple (default, single value), Weighted (A/B traffic split by percentage), Latency-based (routes to lowest-latency region), Failover (active/passive with health checks), or Geolocation (route by user country/continent)</li>
+                    <li class="sop-step"><strong>Configure Health Checks:</strong> Route 53 → Health Checks → Create; set protocol (HTTP/HTTPS/TCP), endpoint (IP or domain), path (e.g. /health), and check interval (30s standard, 10s fast); attach health checks to Failover or Weighted records to automatically remove unhealthy endpoints</li>
+                    <li class="sop-step"><strong>Enable DNS Query Logging:</strong> Hosted Zone → Configure Query Logging → select or create a CloudWatch Log Group; logs capture query name, type, response code, and resolver IP — useful for traffic analysis, debugging resolution failures, and security auditing</li>
+                    <li class="sop-step"><strong>Test &amp; Validate:</strong> Use the Route 53 Test Record Set tool (Hosted Zone → Test record set) to simulate DNS queries; validate externally with CLI tools — dig yourdomain.com, nslookup yourdomain.com, or host yourdomain.com — and confirm TTL, record values, and routing behaviour are correct</li>
+                </ol>
+            </div>
+
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <div class="sop-title-wrap"><h3>Auto Scaling Group Configuration</h3><div class="sop-category">AWS · Compute</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Prerequisites:</strong> Ensure you have a working AMI (or launch template), a VPC with at least 2 subnets across different AZs, and a configured Security Group before creating the ASG</li>
+                    <li class="sop-step"><strong>Create a Launch Template:</strong> EC2 → Launch Templates → Create; define AMI, instance type, key pair, IAM role, Security Group, and User Data bootstrap script; versioning is supported — always use the latest version in the ASG</li>
+                    <li class="sop-step"><strong>Create Auto Scaling Group:</strong> EC2 → Auto Scaling Groups → Create; name the ASG, select the Launch Template and version; choose VPC and select multiple subnets across AZs for high availability and fault tolerance</li>
+                    <li class="sop-step"><strong>Attach Load Balancer:</strong> In the ASG wizard, attach an existing Application Load Balancer target group or create one; enable ELB health checks so the ASG replaces instances that fail load balancer health checks, not just EC2 status checks</li>
+                    <li class="sop-step"><strong>Set Capacity Limits:</strong> Define Minimum (floor — ASG never scales below this), Maximum (ceiling — ASG never exceeds this), and Desired (current target count) capacity; start with min=2, desired=2, max=6 for a typical production workload</li>
+                    <li class="sop-step"><strong>Configure Scaling Policies:</strong> Choose Target Tracking (simplest — e.g. keep average CPU at 50%), Step Scaling (scale by fixed increments based on CloudWatch alarm thresholds), or Scheduled Scaling (scale up before known traffic spikes like business hours or events)</li>
+                    <li class="sop-step"><strong>Set Cooldown Period:</strong> Default cooldown is 300 seconds — prevents the ASG from launching or terminating additional instances before the previous scaling activity takes effect; tune lower (60–120s) for faster-responding workloads</li>
+                    <li class="sop-step"><strong>Configure Instance Refresh:</strong> ASG → Instance Refresh → Start; set minimum healthy percentage (e.g. 80%) and warm-up time; use this to safely roll out new AMI versions or launch template changes across the fleet without downtime</li>
+                    <li class="sop-step"><strong>Enable Lifecycle Hooks:</strong> Add Launch and Terminate hooks to run custom actions (install agents, drain connections, back up logs) before an instance is put into service or removed; hooks pause the instance in a Pending:Wait or Terminating:Wait state</li>
+                    <li class="sop-step"><strong>Test &amp; Monitor:</strong> Manually set desired capacity to trigger a scale-out; verify new instances register with the load balancer and pass health checks; monitor ASG activity history, CloudWatch metrics (GroupDesiredCapacity, GroupInServiceInstances), and SNS notifications for scaling events</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="sop-title-wrap"><h3>CloudWatch Monitoring &amp; Alerts</h3><div class="sop-category">AWS · Monitoring</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Access CloudWatch Console:</strong> AWS Console → CloudWatch; CloudWatch is a regional service — switch to the correct region; it collects metrics, logs, events, and traces from virtually all AWS services automatically</li>
+                    <li class="sop-step"><strong>Explore Default Metrics:</strong> CloudWatch → Metrics → All Metrics; browse namespaces (AWS/EC2, AWS/RDS, AWS/ELB, etc.); key EC2 metrics include CPUUtilization, NetworkIn/Out, DiskReadOps — note that memory and disk usage require the CloudWatch Agent</li>
+                    <li class="sop-step"><strong>Install CloudWatch Agent:</strong> On EC2, install the agent via Systems Manager (Run Command → AWS-ConfigureAWSPackage → AmazonCloudWatchAgent) or manually; configure with wizard (sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard) to collect memory, disk, and custom app metrics</li>
+                    <li class="sop-step"><strong>Create a Dashboard:</strong> CloudWatch → Dashboards → Create Dashboard; add widgets (Line, Number, Gauge, Bar); pin key metrics like CPU, memory, request count, error rate, and latency across services; share dashboards across accounts using cross-account observability</li>
+                    <li class="sop-step"><strong>Create a CloudWatch Alarm:</strong> Metrics → select metric → Create Alarm; set the threshold (e.g. CPUUtilization &gt; 80% for 2 consecutive 5-minute periods); define alarm states: OK, ALARM, INSUFFICIENT_DATA; alarms can trigger SNS, Auto Scaling, or EC2 actions</li>
+                    <li class="sop-step"><strong>Set Up SNS Notifications:</strong> Create an SNS Topic (Simple Notification Service → Create Topic → Standard); add email/SMS/Lambda subscriptions; confirm the email subscription; attach the SNS topic to CloudWatch Alarms to receive immediate alerts on threshold breaches</li>
+                    <li class="sop-step"><strong>Configure Log Groups:</strong> CloudWatch → Log Groups → Create; applications and AWS services push logs here; set retention period (7, 14, 30, 90 days) to control storage costs; use log groups per application/environment (e.g. /prod/nginx/access, /prod/app/errors)</li>
+                    <li class="sop-step"><strong>Create Metric Filters:</strong> Log Groups → select group → Metric Filters → Create; define a filter pattern (e.g. ERROR or [status=5*, ...]) to extract numeric metrics from log data; publish the metric to a custom namespace and set it as the basis for an alarm</li>
+                    <li class="sop-step"><strong>Set Up CloudWatch Synthetics:</strong> CloudWatch → Synthetics → Create Canary; write or use a blueprint script to simulate user journeys (check URL availability, API responses, login flows); canaries run on a schedule and alarm when endpoints fail or latency exceeds thresholds</li>
+                    <li class="sop-step"><strong>Enable CloudWatch Container Insights:</strong> For ECS/EKS workloads, enable Container Insights in cluster settings; it provides CPU, memory, network, and storage metrics per task/pod; use Contributor Insights to identify top-N contributors to high traffic or error rates in logs and metrics</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-balance-scale"></i></div>
+                    <div class="sop-title-wrap"><h3>Elastic Load Balancer Setup</h3><div class="sop-category">AWS · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Choose Load Balancer Type:</strong> Application Load Balancer (ALB) for HTTP/HTTPS and path/host-based routing; Network Load Balancer (NLB) for TCP/UDP with ultra-low latency and static IPs; Gateway Load Balancer (GWLB) for inline network appliances like firewalls</li>
+                    <li class="sop-step"><strong>Create the Load Balancer:</strong> EC2 → Load Balancers → Create; select ALB; enter a name, choose Internet-facing (public) or Internal (private VPC); select at least 2 Availability Zones and their public subnets for high availability</li>
+                    <li class="sop-step"><strong>Configure Security Groups:</strong> Create or assign a Security Group to the ALB allowing inbound HTTP (80) and HTTPS (443) from 0.0.0.0/0; EC2 instance Security Groups should allow traffic only from the ALB Security Group — never expose instance ports directly to the internet</li>
+                    <li class="sop-step"><strong>Create a Target Group:</strong> EC2 → Target Groups → Create; choose target type (Instances, IP addresses, or Lambda); set protocol (HTTP), port (e.g. 80), and VPC; configure health check path (e.g. /health), healthy threshold (2), unhealthy threshold (3), and interval (30s)</li>
+                    <li class="sop-step"><strong>Register Targets:</strong> Select EC2 instances or IPs to add to the target group; set the port each target receives traffic on; newly registered targets enter an Initial state and become Healthy after passing the configured number of consecutive health checks</li>
+                    <li class="sop-step"><strong>Configure Listeners &amp; Rules:</strong> ALB → Listeners → Add Listener; HTTP:80 — add a redirect rule to HTTPS:443; HTTPS:443 — add forward rule to your target group; add path-based rules (e.g. /api/* → API target group, /* → web target group) for microservice routing</li>
+                    <li class="sop-step"><strong>Attach SSL Certificate:</strong> HTTPS listener → select certificate from AWS Certificate Manager (ACM); request a free public certificate in ACM by validating domain ownership via DNS (add CNAME record) or email; ACM auto-renews certificates before expiry</li>
+                    <li class="sop-step"><strong>Enable Sticky Sessions (if needed):</strong> Target Group → Attributes → Stickiness → Enable; choose Load Balancer-generated cookie (AWSALB) or Application cookie; set duration; use only for stateful apps — stateless architectures with shared session stores (Redis/DynamoDB) are preferred</li>
+                    <li class="sop-step"><strong>Enable Access Logs:</strong> Load Balancer → Attributes → Access Logs → Enable; specify an S3 bucket with the correct bucket policy; logs capture client IP, request time, target, response codes, and latency — essential for troubleshooting and security analysis</li>
+                    <li class="sop-step"><strong>Test &amp; Monitor:</strong> Copy the ALB DNS name and test in a browser or with curl; verify requests are distributed across targets; monitor CloudWatch metrics — RequestCount, TargetResponseTime, HTTPCode_ELB_5XX_Count, HealthyHostCount — and set alarms on unhealthy host count and 5xx errors</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-database"></i></div>
+                    <div class="sop-title-wrap"><h3>RDS Database Setup</h3><div class="sop-category">AWS · Database</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Choose Database Engine:</strong> AWS Console → RDS → Create Database; select engine — MySQL, PostgreSQL (most popular open-source options), MariaDB, Oracle, SQL Server, or Amazon Aurora (MySQL/PostgreSQL-compatible with up to 5x performance improvement)</li>
+                    <li class="sop-step"><strong>Select Deployment Option:</strong> Choose Standard Create for full control; select Multi-AZ DB Instance for production (synchronous standby replica in a second AZ for automatic failover); use Single-AZ only for dev/test to reduce costs</li>
+                    <li class="sop-step"><strong>Configure Instance Class:</strong> Select DB instance class — db.t3.micro (free tier, dev/test), db.t3.medium (light production), db.m6i.large (general production), db.r6i.large (memory-intensive); match vCPU and RAM to your query load and connection count</li>
+                    <li class="sop-step"><strong>Set Storage:</strong> Choose General Purpose SSD (gp3) for most workloads; set allocated storage (minimum 20 GB); enable Storage Autoscaling with a maximum threshold to prevent out-of-space errors during unexpected growth; enable encryption at rest using AWS KMS</li>
+                    <li class="sop-step"><strong>Configure Connectivity:</strong> Select VPC and subnet group (create a DB Subnet Group with subnets in at least 2 AZs); set Public Accessibility to No for production; create or assign a VPC Security Group allowing inbound on the DB port (3306 MySQL, 5432 PostgreSQL) only from app-tier Security Groups</li>
+                    <li class="sop-step"><strong>Set Credentials:</strong> Enter a master username and a strong master password (or let AWS manage it via Secrets Manager — recommended); store credentials in AWS Secrets Manager for automatic rotation and secure retrieval by applications without hardcoding passwords</li>
+                    <li class="sop-step"><strong>Configure Backups:</strong> Set automated backup retention period (7–35 days); choose a backup window during low-traffic hours; enable point-in-time recovery (PITR) allowing restore to any second within the retention window; create manual snapshots before major changes</li>
+                    <li class="sop-step"><strong>Enable Enhanced Monitoring &amp; Logs:</strong> Enable Enhanced Monitoring (1–60 second granularity for OS metrics); enable CloudWatch Logs export (error log, slow query log, general log); set slow query threshold to identify and optimise poorly performing queries</li>
+                    <li class="sop-step"><strong>Create Read Replicas (if needed):</strong> RDS → select DB → Actions → Create Read Replica; read replicas offload SELECT queries from the primary, improving read throughput; promote a read replica to standalone if you need to scale writes or recover from a regional failure</li>
+                    <li class="sop-step"><strong>Connect &amp; Validate:</strong> Use the RDS endpoint (found in Connectivity tab) to connect from an EC2 instance in the same VPC — test with mysql -h endpoint -u admin -p or psql -h endpoint -U admin; verify Security Group rules, subnet routing, and parameter group settings if connection fails</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-globe"></i></div>
+                    <div class="sop-title-wrap"><h3>CloudFront CDN Configuration</h3><div class="sop-category">AWS · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Understand CloudFront:</strong> CloudFront is AWS's global CDN with 400+ edge locations worldwide; it caches content close to users to reduce latency, offloads origin traffic, provides DDoS protection via AWS Shield Standard, and integrates natively with S3, ALB, API Gateway, and custom HTTP origins</li>
+                    <li class="sop-step"><strong>Create a Distribution:</strong> AWS Console → CloudFront → Create Distribution; CloudFront has two delivery methods — Web (HTTP/HTTPS for websites and APIs) and RTMP (deprecated, for streaming); select Web for all modern use cases</li>
+                    <li class="sop-step"><strong>Configure Origin:</strong> Set the Origin Domain — S3 bucket URL for static sites (use the REST endpoint, not the website endpoint), ALB DNS name for dynamic apps, or a custom HTTP server; for S3, enable Origin Access Control (OAC) to restrict bucket access exclusively to CloudFront — never expose the bucket publicly</li>
+                    <li class="sop-step"><strong>Set Default Cache Behaviour:</strong> Define the Viewer Protocol Policy (Redirect HTTP to HTTPS — always enable); set Allowed HTTP Methods (GET/HEAD for static content, GET/HEAD/POST/PUT/DELETE for APIs); configure Cache Policy (CachingOptimized for static, CachingDisabled for dynamic/API content)</li>
+                    <li class="sop-step"><strong>Configure Cache Settings:</strong> Use managed cache policies (CachingOptimized sets TTL 1 day to 1 year) or create a custom policy; set minimum, default, and maximum TTL; use Cache-Control headers from your origin to control per-object TTL; configure origin request policies to forward headers, cookies, and query strings selectively</li>
+                    <li class="sop-step"><strong>Add Custom Domain &amp; SSL:</strong> Distribution Settings → Alternate Domain Names (CNAMEs) → add your domain (e.g. cdn.yourdomain.com); select Custom SSL Certificate from ACM — the certificate must be in us-east-1 (N. Virginia) regardless of your distribution's region; create a CNAME record in Route 53 pointing to the CloudFront distribution domain</li>
+                    <li class="sop-step"><strong>Enable Compression:</strong> Cache Behaviour → Compress Objects Automatically → Yes; CloudFront automatically compresses text-based files (HTML, CSS, JS, JSON) with Gzip and Brotli if the viewer supports it; reduces transfer size by 60–80% improving load times and reducing data transfer costs</li>
+                    <li class="sop-step"><strong>Set Up WAF Integration:</strong> Associate an AWS WAF Web ACL with the distribution to block common web exploits (SQL injection, XSS, bad bots); use AWS Managed Rules for instant protection; WAF rules are evaluated at edge locations before requests reach your origin</li>
+                    <li class="sop-step"><strong>Configure Geo-Restriction:</strong> Distribution → Security → Geo-Restriction → Edit; create an allowlist (only specified countries can access) or blocklist (deny specific countries); useful for licensing compliance, regulatory requirements, or blocking known high-risk regions</li>
+                    <li class="sop-step"><strong>Invalidate Cache &amp; Monitor:</strong> After deploying new content, create an invalidation (Invalidations → Create → path /* or specific files) to purge cached objects from all edge locations; monitor with CloudWatch metrics — Requests, BytesDownloaded, 4xxErrorRate, 5xxErrorRate, CacheHitRate — and enable CloudFront access logs to S3 for detailed analysis</li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -679,7 +985,7 @@
         </div>
         <div class="modal-footer">
             <div class="modal-step-count">Total Steps: <span id="modalStepCount">0</span></div>
-            <button class="modal-print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print SOP</button>
+            <button class="modal-print-btn" onclick="printSOP()"><i class="fas fa-print"></i> Print SOP</button>
         </div>
     </div>
 </div>
@@ -825,6 +1131,75 @@
     document.querySelectorAll('.category-section.active .fade-up').forEach(el => {
         setTimeout(() => el.classList.add('visible'), 100);
     });
+
+    // ── Print SOP ──
+    function printSOP() {
+        const title    = document.getElementById('modalTitle').textContent;
+        const category = document.getElementById('modalCategory').textContent;
+        const steps    = document.querySelectorAll('#modalSteps .modal-step');
+
+        let stepsHTML = '';
+        steps.forEach((step, i) => {
+            const label  = step.querySelector('strong') ? step.querySelector('strong').textContent : '';
+            const detail = step.querySelector('span') ? step.querySelector('span').innerHTML : '';
+            stepsHTML += `
+                <tr>
+                    <td class="num">${i + 1}</td>
+                    <td><strong>${label}</strong>${detail ? '<br><span>' + detail + '</span>' : ''}</td>
+                </tr>`;
+        });
+
+        const win = window.open('', '_blank');
+        win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; font-size: 11px; color: #111; padding: 18px 24px; }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0066cc; padding-bottom: 8px; margin-bottom: 12px; }
+        .header-left h1 { font-size: 15px; font-weight: 700; color: #0066cc; margin-bottom: 2px; }
+        .header-left .cat { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+        .header-right { font-size: 9px; color: #999; text-align: right; }
+        table { width: 100%; border-collapse: collapse; }
+        tr { border-bottom: 1px solid #e8e8e8; }
+        tr:last-child { border-bottom: none; }
+        td { padding: 6px 8px; vertical-align: top; }
+        td.num { width: 26px; text-align: center; background: #0066cc; color: white; font-weight: 700; font-size: 10px; border-radius: 50%; width: 22px; height: 22px; line-height: 22px; padding: 0; margin: 4px auto; display: table-cell; }
+        td strong { font-size: 11px; color: #111; display: block; margin-bottom: 2px; }
+        td span { font-size: 10.5px; color: #444; line-height: 1.5; }
+        td code { font-family: 'Courier New', monospace; background: #f0f0f0; padding: 0 3px; border-radius: 2px; font-size: 10px; }
+        .footer { margin-top: 12px; padding-top: 6px; border-top: 1px solid #ddd; font-size: 9px; color: #999; display: flex; justify-content: space-between; }
+        @media print {
+            body { padding: 10px 16px; }
+            @page { margin: 10mm 12mm; size: A4; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <h1>${title}</h1>
+            <div class="cat">${category}</div>
+        </div>
+        <div class="header-right">
+            Deepak Parate · SOPs<br>
+            ${new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})}
+        </div>
+    </div>
+    <table>
+        <tbody>${stepsHTML}</tbody>
+    </table>
+    <div class="footer">
+        <span>Total Steps: ${steps.length}</span>
+        <span>Standard Operating Procedure</span>
+    </div>
+    <script>window.onload = function(){ window.print(); window.onafterprint = function(){ window.close(); }; }<\/script>
+</body>
+</html>`);
+        win.document.close();
+    }
 </script>
 </body>
 </html>
