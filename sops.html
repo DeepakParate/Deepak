@@ -62,6 +62,8 @@
         .aws .section-header h2{color:#ffb347;}
         .gcp .section-icon{background:rgba(66,133,244,0.12);color:#4285f4;border:1px solid rgba(66,133,244,0.3);}
         .gcp .section-header h2{color:#7baff8;}
+        .azure .section-icon{background:rgba(0,120,212,0.12);color:#0078d4;border:1px solid rgba(0,120,212,0.3);}
+        .azure .section-header h2{color:#50a8f0;}
         .others .section-icon{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.25);}
         .others .section-header h2{color:var(--accent);}
 
@@ -74,6 +76,7 @@
         .vmware .sop-card::before{background:linear-gradient(180deg,#80d460,#3a8f1f);}
         .aws .sop-card::before{background:linear-gradient(180deg,#ffb347,#e07b00);}
         .gcp .sop-card::before{background:linear-gradient(180deg,#7baff8,#1a56c4);}
+        .azure .sop-card::before{background:linear-gradient(180deg,#50a8f0,#005a9e);}
         .sop-card:hover::before{height:100%;}
         .sop-card:hover{transform:translateX(8px);border-color:rgba(0,102,204,0.4);}
         .sop-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
@@ -83,6 +86,7 @@
         .vmware .sop-icon{background:rgba(96,189,62,0.1);border-color:rgba(96,189,62,0.3);color:#60bd3e;}
         .aws .sop-icon{background:rgba(255,153,0,0.1);border-color:rgba(255,153,0,0.3);color:#ff9900;}
         .gcp .sop-icon{background:rgba(66,133,244,0.1);border-color:rgba(66,133,244,0.3);color:#4285f4;}
+        .azure .sop-icon{background:rgba(0,120,212,0.12);border-color:rgba(0,120,212,0.35);color:#0078d4;}
         .sop-title-wrap h3{font-size:1.1rem;font-weight:700;margin-bottom:0.1rem;}
         .sop-category{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;}
         .sop-steps{list-style:none;counter-reset:step-counter;}
@@ -93,6 +97,7 @@
         .vmware .sop-step::before{background:#3a8f1f;}
         .aws .sop-step::before{background:#cc7700;}
         .gcp .sop-step::before{background:#1a56c4;}
+        .azure .sop-step::before{background:#005a9e;}
         .sop-step strong{color:var(--text-primary);}
 
         /* Clickable card */
@@ -138,6 +143,8 @@
         .modal-box.aws .modal-icon{background:rgba(255,153,0,0.12);border:1px solid rgba(255,153,0,0.35);color:#ff9900;}
         .modal-box.gcp .modal-step-num{background:#1a56c4;}
         .modal-box.gcp .modal-icon{background:rgba(66,133,244,0.12);border:1px solid rgba(66,133,244,0.35);color:#4285f4;}
+        .modal-box.azure .modal-step-num{background:#005a9e;}
+        .modal-box.azure .modal-icon{background:rgba(0,120,212,0.12);border:1px solid rgba(0,120,212,0.35);color:#0078d4;}
         .modal-box.others .modal-step-num{background:var(--primary);}
         .modal-box.others .modal-icon{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.25);color:var(--accent);}
 
@@ -201,13 +208,13 @@
 <div class="category-tabs-wrap">
     <div class="category-tabs">
         <button class="cat-tab active" data-target="vmware">
-            <i class="fas fa-layer-group"></i> VMware <span class="count">9</span>
+            <i class="fas fa-layer-group"></i> VMware <span class="count">11</span>
         </button>
         <button class="cat-tab" data-target="windows">
-            <i class="fab fa-windows"></i> Windows <span class="count">1</span>
+            <i class="fab fa-windows"></i> Windows <span class="count">2</span>
         </button>
         <button class="cat-tab" data-target="linux">
-            <i class="fab fa-linux"></i> Linux <span class="count">0</span>
+            <i class="fab fa-linux"></i> Linux <span class="count">3</span>
         </button>
         <button class="cat-tab" data-target="aws">
             <i class="fab fa-aws"></i> AWS <span class="count">0</span>
@@ -216,7 +223,7 @@
             <i class="fab fa-google"></i> GCP <span class="count">0</span>
         </button>
         <button class="cat-tab" data-target="azure">
-            <i class="fab fa-google"></i> Azure <span class="count">0</span>
+            <i class="fab fa-microsoft"></i> Azure <span class="count">5</span>
         </button>
         <button class="cat-tab" data-target="others">
             <i class="fas fa-cloud"></i> Others <span class="count">1</span>
@@ -363,6 +370,38 @@
                 </ol>
             </div>
 
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-server"></i></div>
+                    <div class="sop-title-wrap"><h3>vSAN Configuration</h3><div class="sop-category">VMware · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Prerequisites:</strong> Verify minimum 3 ESXi hosts, each with at least one SSD and one HDD/NVMe disk group</li>
+                    <li class="sop-step"><strong>Enable vSAN:</strong> Select cluster → Configure → vSAN → Turn On, choose between Hybrid or All-Flash mode</li>
+                    <li class="sop-step"><strong>Disk Groups:</strong> Claim disks per host — assign one cache tier (SSD) and one or more capacity tier disks per disk group</li>
+                    <li class="sop-step"><strong>Network Config:</strong> Create a dedicated VMkernel port (vmk) on each host tagged for vSAN traffic, ensure MTU 9000 for jumbo frames</li>
+                    <li class="sop-step"><strong>Storage Policy:</strong> Define VM Storage Policies in vCenter — set FTT (Failures to Tolerate) and RAID type (RAID-1/RAID-5/RAID-6)</li>
+                    <li class="sop-step"><strong>Health Check:</strong> Run vSAN Health Service, verify cluster, network, disk, and data tests all pass green</li>
+                    <li class="sop-step"><strong>Validate:</strong> Deploy a test VM on the vSAN datastore, check performance metrics via vSAN Performance Service</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-server"></i></div>
+                    <div class="sop-title-wrap"><h3>Snapshot Management</h3><div class="sop-category">VMware · Infrastructure</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Pre-Snapshot Check:</strong> Verify VM has no existing snapshot chain older than 72 hours; confirm sufficient datastore free space (at least 20% of VM disk size)</li>
+                    <li class="sop-step"><strong>Take Snapshot:</strong> Right-click VM → Snapshots → Take Snapshot; provide a descriptive name/date, enable "Quiesce guest file system" for consistent state</li>
+                    <li class="sop-step"><strong>Validate Snapshot:</strong> Go to Snapshots → Manage Snapshots, confirm snapshot appears in the tree with correct timestamp and parent chain</li>
+                    <li class="sop-step"><strong>Monitor Delta Disk:</strong> Track delta VMDK growth via datastore browser; alert if delta exceeds 50% of base disk to avoid performance degradation</li>
+                    <li class="sop-step"><strong>Revert if Needed:</strong> Right-click snapshot → Revert to Snapshot to roll back VM state; power cycle VM post-revert and verify application health</li>
+                    <li class="sop-step"><strong>Delete &amp; Consolidate:</strong> Remove snapshots via Delete All after changes are validated; confirm "Consolidate" option if disks show fragmentation warnings</li>
+                    <li class="sop-step"><strong>Post-Cleanup Validation:</strong> Verify VM snapshot tree is clean, datastore space is reclaimed, and VM performance metrics return to baseline</li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -391,6 +430,23 @@
                 </ol>
             </div>
 
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-th-large"></i></div>
+                    <div class="sop-title-wrap"><h3>Windows Server Roles and Features</h3><div class="sop-category">Windows · Administration</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Understanding Roles vs Features:</strong> Roles are primary services a server provides (AD DS, DNS, DHCP, IIS, Hyper-V); Features are supporting components (RSAT, .NET Framework, Failover Clustering) that extend role functionality</li>
+                    <li class="sop-step"><strong>Install via Server Manager:</strong> Open Server Manager → Manage → Add Roles and Features → Role-based installation → select server from pool → check desired roles and features → confirm and install</li>
+                    <li class="sop-step"><strong>Install via PowerShell:</strong> Use <code>Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools</code>; list all available roles with <code>Get-WindowsFeature</code> and filter installed ones with <code>Get-WindowsFeature | Where Installed</code></li>
+                    <li class="sop-step"><strong>Active Directory DS:</strong> Install AD DS role → run <code>Install-ADDSForest</code> to promote server to Domain Controller; configure site, replication, and SYSVOL after promotion</li>
+                    <li class="sop-step"><strong>DNS &amp; DHCP Roles:</strong> Install DNS Server role for name resolution; install DHCP role, create scopes (IP range, subnet mask, gateway, lease duration), authorize DHCP server in Active Directory</li>
+                    <li class="sop-step"><strong>IIS Web Server Role:</strong> Install Web Server (IIS) role with required sub-features (ASP.NET, HTTP Redirection, Windows Auth); manage sites via IIS Manager or <code>appcmd</code> CLI</li>
+                    <li class="sop-step"><strong>Hyper-V Role:</strong> Install Hyper-V role (requires hardware virtualisation support); configure virtual switches (External/Internal/Private), create VMs, and enable Live Migration for HA scenarios</li>
+                    <li class="sop-step"><strong>Remove Roles &amp; Features:</strong> Use Server Manager → Remove Roles and Features or run <code>Remove-WindowsFeature -Name &lt;FeatureName&gt;</code>; reboot if prompted and verify removal with <code>Get-WindowsFeature</code></li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -403,10 +459,59 @@
                 <p>Linux server administration, shell scripting, and system management procedures</p>
             </div>
         </div>
-        <div class="empty-state">
-            <i class="fab fa-linux"></i>
-            <h3>No Linux SOPs yet</h3>
-            <p>Linux procedures will be added here — covering RHEL/CentOS/Ubuntu administration, kernel management, LVM, and more.</p>
+        <div class="sops-grid">
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-folder-tree"></i></div>
+                    <div class="sop-title-wrap"><h3>Linux File System Tree</h3><div class="sop-category">Linux · Administration</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>/ (Root):</strong> Top-level directory — the starting point of the entire Linux file system hierarchy; all other directories branch from here</li>
+                    <li class="sop-step"><strong>/bin &amp; /sbin:</strong> Essential user binaries (ls, cp, mv) and system binaries (fdisk, ifconfig) required for booting and single-user mode</li>
+                    <li class="sop-step"><strong>/etc:</strong> System-wide configuration files (network, users, services); critical files include /etc/passwd, /etc/fstab, /etc/hosts, /etc/ssh/sshd_config</li>
+                    <li class="sop-step"><strong>/var:</strong> Variable data that changes at runtime — logs (/var/log), mail spools, cron jobs, and package manager databases</li>
+                    <li class="sop-step"><strong>/home &amp; /root:</strong> User home directories (/home/username) for personal files and settings; /root is the home directory for the root superuser</li>
+                    <li class="sop-step"><strong>/tmp &amp; /opt:</strong> /tmp holds temporary files cleared on reboot; /opt stores optional third-party software packages installed outside the default tree</li>
+                    <li class="sop-step"><strong>/proc &amp; /sys:</strong> Virtual filesystems exposing kernel and hardware info in real time — use cat /proc/cpuinfo, /proc/meminfo, and /sys for device tuning</li>
+                    <li class="sop-step"><strong>/dev &amp; /mnt:</strong> /dev contains device files (disks, TTYs, null); /mnt and /media are standard mount points for external drives and network shares</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-lock"></i></div>
+                    <div class="sop-title-wrap"><h3>Linux Permission</h3><div class="sop-category">Linux · Security</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Understanding Permissions:</strong> Every file has three permission sets — Owner (u), Group (g), Others (o); each with Read (r=4), Write (w=2), Execute (x=1) rights</li>
+                    <li class="sop-step"><strong>View Permissions:</strong> Run <code>ls -l</code> to list permissions; output format is <code>-rwxr-xr--</code> where the first char is file type, followed by three triads (owner/group/others)</li>
+                    <li class="sop-step"><strong>chmod (Symbolic):</strong> Use <code>chmod u+x file</code> to add execute for owner, <code>chmod g-w file</code> to remove write from group, <code>chmod o=r file</code> to set others to read-only</li>
+                    <li class="sop-step"><strong>chmod (Numeric):</strong> Use octal notation — <code>chmod 755 file</code> sets rwxr-xr-x; <code>chmod 644 file</code> sets rw-r--r--; <code>chmod 700 file</code> restricts access to owner only</li>
+                    <li class="sop-step"><strong>chown &amp; chgrp:</strong> Change file owner with <code>chown user:group file</code>; use <code>chown -R user:group /dir</code> for recursive ownership changes on directories</li>
+                    <li class="sop-step"><strong>Special Permissions:</strong> Set SUID (<code>chmod u+s</code>) to run as file owner, SGID (<code>chmod g+s</code>) to inherit group, Sticky Bit (<code>chmod +t</code>) on directories to restrict deletion to file owners only</li>
+                    <li class="sop-step"><strong>umask:</strong> Set default permission mask with <code>umask 022</code> (new files get 644, directories get 755); add to /etc/profile or ~/.bashrc to persist across sessions</li>
+                    <li class="sop-step"><strong>ACL (Advanced):</strong> Use <code>setfacl -m u:username:rwx file</code> for fine-grained access beyond standard UGO; verify with <code>getfacl file</code></li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-hdd"></i></div>
+                    <div class="sop-title-wrap"><h3>File Systems Concept</h3><div class="sop-category">Linux · Storage</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>What is a File System:</strong> A file system defines how data is stored, organized, and retrieved on a disk — it manages inodes (metadata), data blocks, and directory structures</li>
+                    <li class="sop-step"><strong>Common Types:</strong> ext4 (default on most Linux distros — journaled, stable), XFS (high-performance, large files), Btrfs (snapshots, checksums), tmpfs (RAM-based, volatile), NFS (network-mounted)</li>
+                    <li class="sop-step"><strong>Inodes &amp; Blocks:</strong> Each file has an inode storing metadata (permissions, owner, timestamps, pointers to data blocks); check inode usage with <code>df -i</code> and block usage with <code>df -h</code></li>
+                    <li class="sop-step"><strong>Create a File System:</strong> After partitioning, format with <code>mkfs.ext4 /dev/sdb1</code> or <code>mkfs.xfs /dev/sdb1</code>; use <code>blkid</code> to verify the UUID and type of the new file system</li>
+                    <li class="sop-step"><strong>Mount &amp; Unmount:</strong> Mount with <code>mount /dev/sdb1 /mnt/data</code>; unmount with <code>umount /mnt/data</code>; verify active mounts using <code>mount | grep sdb1</code> or <code>lsblk</code></li>
+                    <li class="sop-step"><strong>Persistent Mounts (/etc/fstab):</strong> Add entry — <code>UUID=xxxx /mnt/data ext4 defaults 0 2</code>; test without rebooting using <code>mount -a</code> and check for errors</li>
+                    <li class="sop-step"><strong>Check &amp; Repair:</strong> Run <code>fsck /dev/sdb1</code> on unmounted partitions to detect and fix errors; use <code>tune2fs -l /dev/sdb1</code> to inspect ext4 superblock details</li>
+                    <li class="sop-step"><strong>Disk Usage &amp; Quotas:</strong> Monitor usage with <code>du -sh /path</code> and <code>df -h</code>; enable disk quotas via <code>quotaon</code> and define limits with <code>edquota -u username</code> to control per-user consumption</li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -439,6 +544,90 @@
             <i class="fab fa-google"></i>
             <h3>No GCP SOPs yet</h3>
             <p>GCP procedures will be added here — covering Compute Engine, GKE, Cloud Storage, IAM, and more.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════ AZURE ══════════════════ -->
+    <div class="category-section azure" id="section-azure">
+        <div class="section-header">
+            <div class="section-icon"><i class="fab fa-microsoft"></i></div>
+            <div>
+                <h2>Azure</h2>
+                <p>Microsoft Azure cloud infrastructure, VMs, networking, IAM, and DevOps operations</p>
+            </div>
+        </div>
+        <div class="sops-grid">
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-server"></i></div>
+                    <div class="sop-title-wrap"><h3>Azure Virtual Machine Deployment</h3><div class="sop-category">Azure · Compute</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Resource Group:</strong> Create or select a Resource Group and choose the target region</li>
+                    <li class="sop-step"><strong>VM Configuration:</strong> Select VM size, OS image (Windows/Linux), and set admin credentials</li>
+                    <li class="sop-step"><strong>Networking:</strong> Configure VNet, subnet, NSG rules, and assign public/private IP</li>
+                    <li class="sop-step"><strong>Disks &amp; Extensions:</strong> Attach managed disks, enable encryption, install monitoring extensions</li>
+                    <li class="sop-step"><strong>Validate:</strong> Connect via RDP/SSH, verify OS boot, check Azure Monitor metrics</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-network-wired"></i></div>
+                    <div class="sop-title-wrap"><h3>Azure Virtual Network Setup</h3><div class="sop-category">Azure · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Create VNet:</strong> Define address space (CIDR), create VNet in target resource group and region</li>
+                    <li class="sop-step"><strong>Subnets:</strong> Add subnets for workloads (GatewaySubnet, AppSubnet, DBSubnet)</li>
+                    <li class="sop-step"><strong>NSG Rules:</strong> Create Network Security Groups, attach to subnets, define inbound/outbound rules</li>
+                    <li class="sop-step"><strong>VNet Peering:</strong> Peer VNets across regions/subscriptions, enable traffic forwarding if required</li>
+                    <li class="sop-step"><strong>DNS &amp; Routing:</strong> Configure custom DNS servers, create User Defined Routes for traffic control</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-users-cog"></i></div>
+                    <div class="sop-title-wrap"><h3>Azure IAM &amp; RBAC Configuration</h3><div class="sop-category">Azure · Identity</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Azure AD Setup:</strong> Create users/groups in Azure Active Directory, sync with on-prem AD via AD Connect</li>
+                    <li class="sop-step"><strong>Role Assignment:</strong> Assign built-in roles (Owner, Contributor, Reader) at subscription/RG/resource scope</li>
+                    <li class="sop-step"><strong>Custom Roles:</strong> Define custom RBAC roles with least-privilege permissions using JSON definition</li>
+                    <li class="sop-step"><strong>MFA &amp; Conditional Access:</strong> Enable MFA for privileged accounts, create Conditional Access policies</li>
+                    <li class="sop-step"><strong>PIM:</strong> Enable Privileged Identity Management for just-in-time role activation and audit</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="sop-title-wrap"><h3>Azure Security Center Hardening</h3><div class="sop-category">Azure · Security</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Enable Defender:</strong> Enable Microsoft Defender for Cloud on all subscriptions, set to Standard tier</li>
+                    <li class="sop-step"><strong>Secure Score:</strong> Review Secure Score recommendations and remediate high-severity findings</li>
+                    <li class="sop-step"><strong>Policy Assignments:</strong> Apply Azure Security Benchmark or CIS policy initiative to subscriptions</li>
+                    <li class="sop-step"><strong>Threat Protection:</strong> Enable Defender plans for VMs, SQL, Storage, Key Vault, and Containers</li>
+                    <li class="sop-step"><strong>Alerts &amp; SIEM:</strong> Configure alert notifications, export alerts to Sentinel/Log Analytics workspace</li>
+                </ol>
+            </div>
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-sync-alt"></i></div>
+                    <div class="sop-title-wrap"><h3>Azure VM Backup &amp; Recovery</h3><div class="sop-category">Azure · Disaster Recovery</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Recovery Vault:</strong> Create Recovery Services Vault in the target region and resource group</li>
+                    <li class="sop-step"><strong>Backup Policy:</strong> Define backup frequency (daily/weekly), retention periods, and snapshot settings</li>
+                    <li class="sop-step"><strong>Enable Backup:</strong> Associate VMs with the vault, trigger initial backup to verify configuration</li>
+                    <li class="sop-step"><strong>Test Restore:</strong> Perform test restore to alternate location, validate data integrity and boot</li>
+                    <li class="sop-step"><strong>Monitor &amp; Alert:</strong> Configure Backup Center alerts, review job status in Log Analytics</li>
+                </ol>
+            </div>
+
         </div>
     </div>
 
@@ -503,7 +692,7 @@
             <div class="social-links">
                 <a href="https://linkedin.com" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://github.com" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="mailto:deepak@example.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="/cdn-cgi/l/email-protection#395d5c5c495852795c41585449555c175a5654" class="social-link"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div class="footer-section">
@@ -518,7 +707,7 @@
     <div class="footer-bottom"><p>&copy; 2026 Deepak Parate. All rights reserved.</p></div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── Navbar scroll ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
@@ -573,7 +762,7 @@
     function openModal(card) {
         // Identify category class for colour theming
         const section = card.closest('.category-section');
-        const catClass = ['win','linux','vmware','aws','gcp','others'].find(c => section.classList.contains(c)) || 'others';
+        const catClass = ['win','linux','vmware','aws','gcp','azure','others'].find(c => section.classList.contains(c)) || 'others';
 
         // Extract data from the card
         const title    = card.querySelector('h3').textContent;
@@ -627,10 +816,15 @@
     document.getElementById('modalClose').addEventListener('click', closeModal);
 
     // Click backdrop to close
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal();    });
 
-    // Escape key to close
+    // Keyboard ESC to close
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── Initial fade-up for active section ──
+    document.querySelectorAll('.category-section.active .fade-up').forEach(el => {
+        setTimeout(() => el.classList.add('visible'), 100);
+    });
 </script>
 </body>
 </html>
