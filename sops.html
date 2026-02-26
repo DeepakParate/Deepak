@@ -32,21 +32,120 @@
         .page-hero h1{font-size:3.5rem;font-weight:900;line-height:1.1;margin-bottom:1rem;}
         .page-hero p{font-size:1.1rem;color:var(--text-secondary);max-width:650px;}
 
-        .page-content{padding:2rem 5% 6rem;max-width:1400px;margin:0 auto;}
+        /* ── Category Tabs ── */
+        .category-tabs-wrap{padding:0 5%;max-width:1400px;margin:0 auto 2.5rem;}
+        .category-tabs{display:flex;gap:0.6rem;flex-wrap:wrap;}
+        .cat-tab{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 1.2rem;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.25s ease;font-family:'Archivo',sans-serif;}
+        .cat-tab i{font-size:0.9rem;}
+        .cat-tab .count{font-family:'JetBrains Mono',monospace;font-size:0.7rem;background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:20px;}
+        .cat-tab:hover{color:var(--text-primary);border-color:rgba(0,212,255,0.3);}
+        .cat-tab.active{background:linear-gradient(135deg,rgba(0,102,204,0.25),rgba(0,212,255,0.1));border-color:var(--accent);color:var(--accent);}
+        .cat-tab.active .count{background:rgba(0,212,255,0.15);}
+
+        /* ── Category Sections ── */
+        .page-content{padding:0 5% 6rem;max-width:1400px;margin:0 auto;}
+        .category-section{display:none;}
+        .category-section.active{display:block;}
+        .section-header{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+        .section-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+        .section-header h2{font-size:1.6rem;font-weight:800;}
+        .section-header p{color:var(--text-secondary);font-size:0.9rem;margin-top:0.1rem;}
+
+        /* Category accent colors */
+        .win .section-icon{background:rgba(0,120,212,0.15);color:#0078d4;border:1px solid rgba(0,120,212,0.3);}
+        .win .section-header h2{color:#5bb8ff;}
+        .linux .section-icon{background:rgba(255,165,0,0.12);color:#ffa500;border:1px solid rgba(255,165,0,0.3);}
+        .linux .section-header h2{color:#ffbb44;}
+        .vmware .section-icon{background:rgba(96,189,62,0.12);color:#60bd3e;border:1px solid rgba(96,189,62,0.3);}
+        .vmware .section-header h2{color:#80d460;}
+        .aws .section-icon{background:rgba(255,153,0,0.12);color:#ff9900;border:1px solid rgba(255,153,0,0.3);}
+        .aws .section-header h2{color:#ffb347;}
+        .gcp .section-icon{background:rgba(66,133,244,0.12);color:#4285f4;border:1px solid rgba(66,133,244,0.3);}
+        .gcp .section-header h2{color:#7baff8;}
+        .others .section-icon{background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.25);}
+        .others .section-header h2{color:var(--accent);}
+
         .sops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:2rem;}
 
         .sop-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2.5rem;transition:all 0.3s ease;position:relative;overflow:hidden;}
         .sop-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:linear-gradient(180deg,var(--accent),var(--primary));transition:height 0.4s ease;}
+        .win .sop-card::before{background:linear-gradient(180deg,#5bb8ff,#0066cc);}
+        .linux .sop-card::before{background:linear-gradient(180deg,#ffbb44,#ff7700);}
+        .vmware .sop-card::before{background:linear-gradient(180deg,#80d460,#3a8f1f);}
+        .aws .sop-card::before{background:linear-gradient(180deg,#ffb347,#e07b00);}
+        .gcp .sop-card::before{background:linear-gradient(180deg,#7baff8,#1a56c4);}
         .sop-card:hover::before{height:100%;}
         .sop-card:hover{transform:translateX(8px);border-color:rgba(0,102,204,0.4);}
         .sop-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
         .sop-icon{width:48px;height:48px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--accent);}
+        .win .sop-icon{background:rgba(0,120,212,0.12);border-color:rgba(0,120,212,0.3);color:#5bb8ff;}
+        .linux .sop-icon{background:rgba(255,165,0,0.1);border-color:rgba(255,165,0,0.3);color:#ffa500;}
+        .vmware .sop-icon{background:rgba(96,189,62,0.1);border-color:rgba(96,189,62,0.3);color:#60bd3e;}
+        .aws .sop-icon{background:rgba(255,153,0,0.1);border-color:rgba(255,153,0,0.3);color:#ff9900;}
+        .gcp .sop-icon{background:rgba(66,133,244,0.1);border-color:rgba(66,133,244,0.3);color:#4285f4;}
         .sop-title-wrap h3{font-size:1.1rem;font-weight:700;margin-bottom:0.1rem;}
         .sop-category{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;}
         .sop-steps{list-style:none;counter-reset:step-counter;}
         .sop-step{counter-increment:step-counter;margin-bottom:1rem;padding-left:2.5rem;position:relative;color:var(--text-secondary);line-height:1.6;font-size:0.9rem;}
         .sop-step::before{content:counter(step-counter);position:absolute;left:0;top:0;width:26px;height:26px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;font-family:'JetBrains Mono',monospace;color:white;}
+        .win .sop-step::before{background:#0066cc;}
+        .linux .sop-step::before{background:#cc6600;}
+        .vmware .sop-step::before{background:#3a8f1f;}
+        .aws .sop-step::before{background:#cc7700;}
+        .gcp .sop-step::before{background:#1a56c4;}
         .sop-step strong{color:var(--text-primary);}
+
+        /* Clickable card */
+        .sop-card{cursor:pointer;}
+        .sop-card .open-hint{display:flex;align-items:center;gap:0.4rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;transition:color 0.2s;}
+        .sop-card:hover .open-hint{color:var(--accent);}
+        .sop-card .open-hint i{font-size:0.75rem;}
+
+        /* ── Modal Overlay ── */
+        .modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(5,8,24,0.85);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+        .modal-overlay.open{opacity:1;pointer-events:all;}
+        .modal-box{background:var(--bg-elevated);border:1px solid rgba(0,212,255,0.2);border-radius:20px;width:100%;max-width:700px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(0,212,255,0.05);transform:translateY(30px) scale(0.97);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s ease;opacity:0;}
+        .modal-overlay.open .modal-box{transform:translateY(0) scale(1);opacity:1;}
+        .modal-top-bar{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+        .modal-meta{display:flex;align-items:center;gap:1rem;}
+        .modal-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+        .modal-title-group h2{font-size:1.15rem;font-weight:700;line-height:1.2;}
+        .modal-category-badge{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:0.2rem;}
+        .modal-close{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s;flex-shrink:0;}
+        .modal-close:hover{background:rgba(255,60,60,0.15);border-color:rgba(255,60,60,0.4);color:#ff6b6b;}
+        .modal-body{padding:2rem;overflow-y:auto;flex:1;}
+        .modal-steps{list-style:none;counter-reset:modal-step;display:flex;flex-direction:column;gap:0;}
+        .modal-step{counter-increment:modal-step;display:flex;gap:1.2rem;padding:1.2rem 0;border-bottom:1px solid var(--border);position:relative;}
+        .modal-step:last-child{border-bottom:none;}
+        .modal-step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;font-family:'JetBrains Mono',monospace;color:white;flex-shrink:0;margin-top:0.1rem;background:var(--primary);}
+        .modal-step-content{flex:1;}
+        .modal-step-content strong{display:block;font-size:0.95rem;color:var(--text-primary);margin-bottom:0.3rem;}
+        .modal-step-content span{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;}
+        .modal-footer{padding:1.2rem 2rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg-card);border-radius:0 0 20px 20px;}
+        .modal-step-count{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-muted);}
+        .modal-step-count span{color:var(--accent);font-weight:700;}
+        .modal-print-btn{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1.1rem;border-radius:7px;background:rgba(0,102,204,0.15);border:1px solid rgba(0,102,204,0.3);color:#5bb8ff;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Archivo',sans-serif;}
+        .modal-print-btn:hover{background:rgba(0,102,204,0.3);border-color:rgba(0,102,204,0.6);}
+
+        /* Colour-theme the modal step numbers per category */
+        .modal-box.win .modal-step-num{background:#0066cc;}
+        .modal-box.win .modal-icon{background:rgba(0,120,212,0.15);border:1px solid rgba(0,120,212,0.35);color:#5bb8ff;}
+        .modal-box.linux .modal-step-num{background:#cc6600;}
+        .modal-box.linux .modal-icon{background:rgba(255,165,0,0.12);border:1px solid rgba(255,165,0,0.35);color:#ffa500;}
+        .modal-box.vmware .modal-step-num{background:#3a8f1f;}
+        .modal-box.vmware .modal-icon{background:rgba(96,189,62,0.12);border:1px solid rgba(96,189,62,0.35);color:#60bd3e;}
+        .modal-box.aws .modal-step-num{background:#cc7700;}
+        .modal-box.aws .modal-icon{background:rgba(255,153,0,0.12);border:1px solid rgba(255,153,0,0.35);color:#ff9900;}
+        .modal-box.gcp .modal-step-num{background:#1a56c4;}
+        .modal-box.gcp .modal-icon{background:rgba(66,133,244,0.12);border:1px solid rgba(66,133,244,0.35);color:#4285f4;}
+        .modal-box.others .modal-step-num{background:var(--primary);}
+        .modal-box.others .modal-icon{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.25);color:var(--accent);}
+
+        /* Empty state */
+        .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-muted);}
+        .empty-state i{font-size:3rem;margin-bottom:1.5rem;display:block;opacity:0.3;}
+        .empty-state h3{font-size:1.2rem;margin-bottom:0.5rem;color:var(--text-secondary);}
+        .empty-state p{font-size:0.9rem;}
 
         /* Footer */
         footer{background:var(--bg-elevated);border-top:1px solid var(--border);padding:4rem 5% 2rem;}
@@ -64,7 +163,14 @@
         .fade-up{opacity:0;transform:translateY(30px);transition:all 0.6s ease-out;}
         .fade-up.visible{opacity:1;transform:translateY(0);}
         @media(max-width:1024px){.footer-content{grid-template-columns:1fr;gap:2rem;}.sops-grid{grid-template-columns:1fr;}}
-        @media(max-width:768px){.nav-links{position:fixed;top:70px;left:-100%;width:100%;background:rgba(10,14,39,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:2rem;gap:1.5rem;transition:left 0.3s ease;border-bottom:1px solid var(--border);}.nav-links.active{left:0;}.mobile-toggle{display:block;}.page-hero h1{font-size:2.5rem;}}
+        @media(max-width:768px){
+            .nav-links{position:fixed;top:70px;left:-100%;width:100%;background:rgba(10,14,39,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:2rem;gap:1.5rem;transition:left 0.3s ease;border-bottom:1px solid var(--border);}
+            .nav-links.active{left:0;}
+            .mobile-toggle{display:block;}
+            .page-hero h1{font-size:2.5rem;}
+            .category-tabs{gap:0.4rem;}
+            .cat-tab{padding:0.45rem 0.9rem;font-size:0.78rem;}
+        }
     </style>
 </head>
 <body>
@@ -88,166 +194,301 @@
 <div class="page-hero">
     <div class="page-breadcrumb"><a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem"></i> SOPs</div>
     <h1>Standard Operating <span style="background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Procedures</span></h1>
-    <p>Detailed step-by-step procedures for VMware administration, Windows Server management, and Azure hybrid cloud tasks — built from real enterprise experience.</p>
+    <p>Detailed step-by-step procedures for VMware administration, Windows Server management, and cloud infrastructure tasks — built from real enterprise experience.</p>
+</div>
+
+<!-- Category Tabs -->
+<div class="category-tabs-wrap">
+    <div class="category-tabs">
+        <button class="cat-tab active" data-target="vmware">
+            <i class="fas fa-layer-group"></i> VMware <span class="count">9</span>
+        </button>
+        <button class="cat-tab" data-target="windows">
+            <i class="fab fa-windows"></i> Windows <span class="count">1</span>
+        </button>
+        <button class="cat-tab" data-target="linux">
+            <i class="fab fa-linux"></i> Linux <span class="count">0</span>
+        </button>
+        <button class="cat-tab" data-target="aws">
+            <i class="fab fa-aws"></i> AWS <span class="count">0</span>
+        </button>
+        <button class="cat-tab" data-target="gcp">
+            <i class="fab fa-google"></i> GCP <span class="count">0</span>
+        </button>
+        <button class="cat-tab" data-target="others">
+            <i class="fas fa-cloud"></i> Others <span class="count">1</span>
+        </button>
+    </div>
 </div>
 
 <div class="page-content">
-    <div class="sops-grid">
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-server"></i></div>
-                <div class="sop-title-wrap"><h3>ESXi Host Deployment</h3><div class="sop-category">VMware · Infrastructure</div></div>
+    <!-- ══════════════════ VMWARE ══════════════════ -->
+    <div class="category-section vmware active" id="section-vmware">
+        <div class="section-header">
+            <div class="section-icon"><i class="fas fa-layer-group"></i></div>
+            <div>
+                <h2>VMware</h2>
+                <p>vSphere, NSX, vSAN, Horizon, and lifecycle management procedures</p>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Boot from ISO:</strong> Mount ESXi ISO via iDRAC/iLO virtual media, boot server</li>
-                <li class="sop-step"><strong>DCUI Setup:</strong> Configure management network (IP, subnet, gateway, DNS) via DCUI</li>
-                <li class="sop-step"><strong>Enable SSH:</strong> Activate SSH and ESXi Shell for remote management</li>
-                <li class="sop-step"><strong>NTP Config:</strong> Set NTP servers for time synchronization</li>
-                <li class="sop-step"><strong>vCenter Add:</strong> Add host to vCenter, join datacenter and cluster</li>
-            </ol>
         </div>
+        <div class="sops-grid">
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-database"></i></div>
-                <div class="sop-title-wrap"><h3>vCenter Server Appliance Deployment</h3><div class="sop-category">VMware · Management</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-server"></i></div>
+                    <div class="sop-title-wrap"><h3>ESXi Host Deployment</h3><div class="sop-category">VMware · Infrastructure</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Boot from ISO:</strong> Mount ESXi ISO via iDRAC/iLO virtual media, boot server</li>
+                    <li class="sop-step"><strong>DCUI Setup:</strong> Configure management network (IP, subnet, gateway, DNS) via DCUI</li>
+                    <li class="sop-step"><strong>Enable SSH:</strong> Activate SSH and ESXi Shell for remote management</li>
+                    <li class="sop-step"><strong>NTP Config:</strong> Set NTP servers for time synchronization</li>
+                    <li class="sop-step"><strong>vCenter Add:</strong> Add host to vCenter, join datacenter and cluster</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Stage 1 Setup:</strong> Mount vCSA ISO, run installer UI, select Install deployment type</li>
-                <li class="sop-step"><strong>Target Selection:</strong> Connect to ESXi host, specify VM name and credentials</li>
-                <li class="sop-step"><strong>SSO Configuration:</strong> Create SSO domain (vsphere.local) or join existing</li>
-                <li class="sop-step"><strong>Network Settings:</strong> Assign static IP, FQDN, DNS servers, gateway</li>
-                <li class="sop-step"><strong>Stage 2 Complete:</strong> Configure time sync, SSH access, CEIP, and verify services</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-cloud"></i></div>
-                <div class="sop-title-wrap"><h3>HA/DRS Cluster Setup</h3><div class="sop-category">VMware · High Availability</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-database"></i></div>
+                    <div class="sop-title-wrap"><h3>vCenter Server Appliance Deployment</h3><div class="sop-category">VMware · Management</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Stage 1 Setup:</strong> Mount vCSA ISO, run installer UI, select Install deployment type</li>
+                    <li class="sop-step"><strong>Target Selection:</strong> Connect to ESXi host, specify VM name and credentials</li>
+                    <li class="sop-step"><strong>SSO Configuration:</strong> Create SSO domain (vsphere.local) or join existing</li>
+                    <li class="sop-step"><strong>Network Settings:</strong> Assign static IP, FQDN, DNS servers, gateway</li>
+                    <li class="sop-step"><strong>Stage 2 Complete:</strong> Configure time sync, SSH access, CEIP, and verify services</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Create Cluster:</strong> Right-click datacenter → New Cluster, name and enable HA/DRS</li>
-                <li class="sop-step"><strong>HA Settings:</strong> Set admission control policy (% reserved capacity or failover hosts)</li>
-                <li class="sop-step"><strong>DRS Automation:</strong> Configure automation level (Manual/Partial/Fully Automated)</li>
-                <li class="sop-step"><strong>Add Hosts:</strong> Drag ESXi hosts to cluster, verify network and shared storage</li>
-                <li class="sop-step"><strong>VM Overrides:</strong> Set per-VM HA/DRS rules for critical workloads</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-network-wired"></i></div>
-                <div class="sop-title-wrap"><h3>Distributed Switch Configuration</h3><div class="sop-category">VMware · Networking</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="sop-title-wrap"><h3>HA/DRS Cluster Setup</h3><div class="sop-category">VMware · High Availability</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Create Cluster:</strong> Right-click datacenter → New Cluster, name and enable HA/DRS</li>
+                    <li class="sop-step"><strong>HA Settings:</strong> Set admission control policy (% reserved capacity or failover hosts)</li>
+                    <li class="sop-step"><strong>DRS Automation:</strong> Configure automation level (Manual/Partial/Fully Automated)</li>
+                    <li class="sop-step"><strong>Add Hosts:</strong> Drag ESXi hosts to cluster, verify network and shared storage</li>
+                    <li class="sop-step"><strong>VM Overrides:</strong> Set per-VM HA/DRS rules for critical workloads</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Create vDS:</strong> Actions → New Distributed Switch, select version and uplink count</li>
-                <li class="sop-step"><strong>Add Hosts:</strong> Right-click vDS → Add/Manage Hosts, select physical adapters</li>
-                <li class="sop-step"><strong>Port Groups:</strong> Create distributed port groups for VLANs (Mgmt, VM Network, vMotion)</li>
-                <li class="sop-step"><strong>Uplink Policy:</strong> Configure load balancing (Route based on IP hash/originating port)</li>
-                <li class="sop-step"><strong>Security:</strong> Enable promiscuous mode if needed, set MAC address changes policy</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fab fa-windows"></i></div>
-                <div class="sop-title-wrap"><h3>Windows Server Hardening</h3><div class="sop-category">Windows · Security</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-network-wired"></i></div>
+                    <div class="sop-title-wrap"><h3>Distributed Switch Configuration</h3><div class="sop-category">VMware · Networking</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Create vDS:</strong> Actions → New Distributed Switch, select version and uplink count</li>
+                    <li class="sop-step"><strong>Add Hosts:</strong> Right-click vDS → Add/Manage Hosts, select physical adapters</li>
+                    <li class="sop-step"><strong>Port Groups:</strong> Create distributed port groups for VLANs (Mgmt, VM Network, vMotion)</li>
+                    <li class="sop-step"><strong>Uplink Policy:</strong> Configure load balancing (Route based on IP hash/originating port)</li>
+                    <li class="sop-step"><strong>Security:</strong> Enable promiscuous mode if needed, set MAC address changes policy</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Disable Services:</strong> Turn off unnecessary services (Print Spooler, Remote Registry)</li>
-                <li class="sop-step"><strong>GPO Policies:</strong> Apply CIS benchmarks via GPO (password policies, account lockout)</li>
-                <li class="sop-step"><strong>Firewall Rules:</strong> Enable Windows Firewall, restrict inbound to required ports only</li>
-                <li class="sop-step"><strong>Patch Management:</strong> Configure WSUS/SCCM, auto-install critical updates</li>
-                <li class="sop-step"><strong>Audit Logging:</strong> Enable advanced audit policies, forward logs to SIEM</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-sync-alt"></i></div>
-                <div class="sop-title-wrap"><h3>vSphere Lifecycle Manager (vLCM)</h3><div class="sop-category">VMware · Patching</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-sync-alt"></i></div>
+                    <div class="sop-title-wrap"><h3>vSphere Lifecycle Manager (vLCM)</h3><div class="sop-category">VMware · Patching</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Enable vLCM:</strong> Select cluster → Updates → Lifecycle Manager → Enable</li>
+                    <li class="sop-step"><strong>Import Image:</strong> Upload ESXi ISO to vLCM depot or use online depot</li>
+                    <li class="sop-step"><strong>Create Baseline:</strong> Define desired image with patches, drivers, firmware</li>
+                    <li class="sop-step"><strong>Remediate:</strong> Check compliance, schedule remediation during maintenance window</li>
+                    <li class="sop-step"><strong>Validate:</strong> Verify all hosts compliant, check hardware compatibility issues</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Enable vLCM:</strong> Select cluster → Updates → Lifecycle Manager → Enable</li>
-                <li class="sop-step"><strong>Import Image:</strong> Upload ESXi ISO to vLCM depot or use online depot</li>
-                <li class="sop-step"><strong>Create Baseline:</strong> Define desired image with patches, drivers, firmware</li>
-                <li class="sop-step"><strong>Remediate:</strong> Check compliance, schedule remediation during maintenance window</li>
-                <li class="sop-step"><strong>Validate:</strong> Verify all hosts compliant, check hardware compatibility issues</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-download"></i></div>
-                <div class="sop-title-wrap"><h3>ESXi Patching Procedure</h3><div class="sop-category">VMware · Maintenance</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-download"></i></div>
+                    <div class="sop-title-wrap"><h3>ESXi Patching Procedure</h3><div class="sop-category">VMware · Maintenance</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Pre-Patching:</strong> Take VM snapshots, verify backups, check HCL compatibility</li>
+                    <li class="sop-step"><strong>Maintenance Mode:</strong> Put host in maintenance mode, evacuate VMs via vMotion/DRS</li>
+                    <li class="sop-step"><strong>Apply Patch:</strong> Use esxcli software vib install or vLCM remediation</li>
+                    <li class="sop-step"><strong>Reboot & Verify:</strong> Reboot host, check SSH/services, validate datastore connectivity</li>
+                    <li class="sop-step"><strong>Exit Maintenance:</strong> Exit maintenance mode, remove snapshots, monitor alerts</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Pre-Patching:</strong> Take VM snapshots, verify backups, check HCL compatibility</li>
-                <li class="sop-step"><strong>Maintenance Mode:</strong> Put host in maintenance mode, evacuate VMs via vMotion/DRS</li>
-                <li class="sop-step"><strong>Apply Patch:</strong> Use esxcli software vib install or vLCM remediation</li>
-                <li class="sop-step"><strong>Reboot & Verify:</strong> Reboot host, check SSH/services, validate datastore connectivity</li>
-                <li class="sop-step"><strong>Exit Maintenance:</strong> Exit maintenance mode, remove snapshots, monitor alerts</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-exchange-alt"></i></div>
-                <div class="sop-title-wrap"><h3>P2V & V2V Migration</h3><div class="sop-category">VMware · Migration</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="sop-title-wrap"><h3>P2V &amp; V2V Migration</h3><div class="sop-category">VMware · Migration</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Assessment:</strong> Check disk space, network bandwidth, application dependencies</li>
+                    <li class="sop-step"><strong>VMware Converter:</strong> Install agent/agentless, configure source and destination</li>
+                    <li class="sop-step"><strong>Migration:</strong> Start conversion, monitor progress, handle VSS snapshots</li>
+                    <li class="sop-step"><strong>Post-Migration:</strong> Install VMware Tools, reconfigure network, update DNS/DHCP</li>
+                    <li class="sop-step"><strong>Validation:</strong> Test application functionality, decommission old server</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Assessment:</strong> Check disk space, network bandwidth, application dependencies</li>
-                <li class="sop-step"><strong>VMware Converter:</strong> Install agent/agentless, configure source and destination</li>
-                <li class="sop-step"><strong>Migration:</strong> Start conversion, monitor progress, handle VSS snapshots</li>
-                <li class="sop-step"><strong>Post-Migration:</strong> Install VMware Tools, reconfigure network, update DNS/DHCP</li>
-                <li class="sop-step"><strong>Validation:</strong> Test application functionality, decommission old server</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fab fa-microsoft"></i></div>
-                <div class="sop-title-wrap"><h3>Azure Arc Onboarding</h3><div class="sop-category">Azure · Hybrid Cloud</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="sop-title-wrap"><h3>VMware NSX Micro-Segmentation</h3><div class="sop-category">VMware · Security</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>NSX Preparation:</strong> Deploy NSX Manager, configure transport zones and edge nodes</li>
+                    <li class="sop-step"><strong>Logical Segments:</strong> Create overlay segments for application tiers (web/app/db)</li>
+                    <li class="sop-step"><strong>DFW Rules:</strong> Configure Distributed Firewall with micro-segmentation policies</li>
+                    <li class="sop-step"><strong>Security Groups:</strong> Create dynamic groups based on VM tags, OS type, or apps</li>
+                    <li class="sop-step"><strong>Monitor Traffic:</strong> Use NSX Intelligence/Flow Monitoring for traffic visualization</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Prerequisites:</strong> Create Azure subscription, resource group, service principal</li>
-                <li class="sop-step"><strong>Install Agent:</strong> Deploy Connected Machine agent via script/Group Policy</li>
-                <li class="sop-step"><strong>Connect Resources:</strong> Register servers to Azure, verify portal connectivity</li>
-                <li class="sop-step"><strong>Apply Policies:</strong> Enable Azure Policy, configure Update Management, deploy extensions</li>
-                <li class="sop-step"><strong>Monitor:</strong> Set up Azure Monitor, configure alerts, review compliance status</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="sop-title-wrap"><h3>VMware NSX Micro-Segmentation</h3><div class="sop-category">VMware · Security</div></div>
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fas fa-desktop"></i></div>
+                    <div class="sop-title-wrap"><h3>VMware Horizon VDI Setup</h3><div class="sop-category">VMware · VDI</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Infrastructure:</strong> Deploy Connection Servers, configure load balancing</li>
+                    <li class="sop-step"><strong>Golden Image:</strong> Create and optimize Windows master image, install Horizon Agent</li>
+                    <li class="sop-step"><strong>Desktop Pools:</strong> Configure instant/linked clone pools with replica settings</li>
+                    <li class="sop-step"><strong>App Volumes:</strong> Deploy App Volumes Manager, create AppStacks for app delivery</li>
+                    <li class="sop-step"><strong>User Access:</strong> Configure entitlements, set up Unified Access Gateway for remote access</li>
+                </ol>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>NSX Preparation:</strong> Deploy NSX Manager, configure transport zones and edge nodes</li>
-                <li class="sop-step"><strong>Logical Segments:</strong> Create overlay segments for application tiers (web/app/db)</li>
-                <li class="sop-step"><strong>DFW Rules:</strong> Configure Distributed Firewall with micro-segmentation policies</li>
-                <li class="sop-step"><strong>Security Groups:</strong> Create dynamic groups based on VM tags, OS type, or apps</li>
-                <li class="sop-step"><strong>Monitor Traffic:</strong> Use NSX Intelligence/Flow Monitoring for traffic visualization</li>
-            </ol>
-        </div>
 
-        <div class="sop-card fade-up">
-            <div class="sop-header">
-                <div class="sop-icon"><i class="fas fa-desktop"></i></div>
-                <div class="sop-title-wrap"><h3>VMware Horizon VDI Setup</h3><div class="sop-category">VMware · VDI</div></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════ WINDOWS ══════════════════ -->
+    <div class="category-section win" id="section-windows">
+        <div class="section-header">
+            <div class="section-icon"><i class="fab fa-windows"></i></div>
+            <div>
+                <h2>Windows</h2>
+                <p>Windows Server administration, Active Directory, Group Policy, and security hardening</p>
             </div>
-            <ol class="sop-steps">
-                <li class="sop-step"><strong>Infrastructure:</strong> Deploy Connection Servers, configure load balancing</li>
-                <li class="sop-step"><strong>Golden Image:</strong> Create and optimize Windows master image, install Horizon Agent</li>
-                <li class="sop-step"><strong>Desktop Pools:</strong> Configure instant/linked clone pools with replica settings</li>
-                <li class="sop-step"><strong>App Volumes:</strong> Deploy App Volumes Manager, create AppStacks for app delivery</li>
-                <li class="sop-step"><strong>User Access:</strong> Configure entitlements, set up Unified Access Gateway for remote access</li>
-            </ol>
         </div>
+        <div class="sops-grid">
 
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fab fa-windows"></i></div>
+                    <div class="sop-title-wrap"><h3>Windows Server Hardening</h3><div class="sop-category">Windows · Security</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Disable Services:</strong> Turn off unnecessary services (Print Spooler, Remote Registry)</li>
+                    <li class="sop-step"><strong>GPO Policies:</strong> Apply CIS benchmarks via GPO (password policies, account lockout)</li>
+                    <li class="sop-step"><strong>Firewall Rules:</strong> Enable Windows Firewall, restrict inbound to required ports only</li>
+                    <li class="sop-step"><strong>Patch Management:</strong> Configure WSUS/SCCM, auto-install critical updates</li>
+                    <li class="sop-step"><strong>Audit Logging:</strong> Enable advanced audit policies, forward logs to SIEM</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ══════════════════ LINUX ══════════════════ -->
+    <div class="category-section linux" id="section-linux">
+        <div class="section-header">
+            <div class="section-icon"><i class="fab fa-linux"></i></div>
+            <div>
+                <h2>Linux</h2>
+                <p>Linux server administration, shell scripting, and system management procedures</p>
+            </div>
+        </div>
+        <div class="empty-state">
+            <i class="fab fa-linux"></i>
+            <h3>No Linux SOPs yet</h3>
+            <p>Linux procedures will be added here — covering RHEL/CentOS/Ubuntu administration, kernel management, LVM, and more.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════ AWS ══════════════════ -->
+    <div class="category-section aws" id="section-aws">
+        <div class="section-header">
+            <div class="section-icon"><i class="fab fa-aws"></i></div>
+            <div>
+                <h2>AWS</h2>
+                <p>Amazon Web Services infrastructure, EC2, VPC, IAM, and cloud operations</p>
+            </div>
+        </div>
+        <div class="empty-state">
+            <i class="fab fa-aws"></i>
+            <h3>No AWS SOPs yet</h3>
+            <p>AWS procedures will be added here — covering EC2, S3, VPC, IAM, CloudFormation, and more.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════ GCP ══════════════════ -->
+    <div class="category-section gcp" id="section-gcp">
+        <div class="section-header">
+            <div class="section-icon"><i class="fab fa-google"></i></div>
+            <div>
+                <h2>GCP</h2>
+                <p>Google Cloud Platform compute, networking, IAM, and managed service operations</p>
+            </div>
+        </div>
+        <div class="empty-state">
+            <i class="fab fa-google"></i>
+            <h3>No GCP SOPs yet</h3>
+            <p>GCP procedures will be added here — covering Compute Engine, GKE, Cloud Storage, IAM, and more.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════ OTHERS ══════════════════ -->
+    <div class="category-section others" id="section-others">
+        <div class="section-header">
+            <div class="section-icon"><i class="fas fa-cloud"></i></div>
+            <div>
+                <h2>Others</h2>
+                <p>Azure hybrid cloud, cross-platform tools, and miscellaneous infrastructure procedures</p>
+            </div>
+        </div>
+        <div class="sops-grid">
+
+            <div class="sop-card fade-up">
+                <div class="sop-header">
+                    <div class="sop-icon"><i class="fab fa-microsoft"></i></div>
+                    <div class="sop-title-wrap"><h3>Azure Arc Onboarding</h3><div class="sop-category">Azure · Hybrid Cloud</div></div>
+                </div>
+                <ol class="sop-steps">
+                    <li class="sop-step"><strong>Prerequisites:</strong> Create Azure subscription, resource group, service principal</li>
+                    <li class="sop-step"><strong>Install Agent:</strong> Deploy Connected Machine agent via script/Group Policy</li>
+                    <li class="sop-step"><strong>Connect Resources:</strong> Register servers to Azure, verify portal connectivity</li>
+                    <li class="sop-step"><strong>Apply Policies:</strong> Enable Azure Policy, configure Update Management, deploy extensions</li>
+                    <li class="sop-step"><strong>Monitor:</strong> Set up Azure Monitor, configure alerts, review compliance status</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ══════════ MODAL ══════════ -->
+<div class="modal-overlay" id="sopModal" role="dialog" aria-modal="true">
+    <div class="modal-box" id="modalBox">
+        <div class="modal-top-bar">
+            <div class="modal-meta">
+                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-title-group">
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-category-badge" id="modalCategory"></div>
+                </div>
+            </div>
+            <button class="modal-close" id="modalClose" aria-label="Close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <ol class="modal-steps" id="modalSteps"></ol>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-step-count">Total Steps: <span id="modalStepCount">0</span></div>
+            <button class="modal-print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print SOP</button>
+        </div>
     </div>
 </div>
 
@@ -259,7 +500,7 @@
             <div class="social-links">
                 <a href="https://linkedin.com" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://github.com" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="mailto:deepakparate8929@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:deepak@example.com" class="social-link"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
         <div class="footer-section">
@@ -268,23 +509,125 @@
         </div>
         <div class="footer-section">
             <h4>Contact</h4>
-            <div class="footer-links"><a href="mailto:deepakparate8929@gmail.com">deepakparate8929@gmail.com</a><a href="tel:+918866418929">+91 8866418929</a></div>
+            <div class="footer-links"><a href="tel:+918866418929">+91 8866418929</a></div>
         </div>
     </div>
     <div class="footer-bottom"><p>&copy; 2026 Deepak Parate. All rights reserved.</p></div>
 </footer>
+
 <script>
+    // ── Navbar scroll ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+
+    // ── Mobile toggle ──
     document.getElementById('mobileToggle').addEventListener('click', function() {
         document.getElementById('navLinks').classList.toggle('active');
         const icon = this.querySelector('i');
         icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
     });
+
+    // ── Category tabs ──
+    const tabs = document.querySelectorAll('.cat-tab');
+    const sections = document.querySelectorAll('.category-section');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.target;
+            tabs.forEach(t => t.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('section-' + target).classList.add('active');
+            document.querySelectorAll('#section-' + target + ' .fade-up').forEach(el => {
+                el.classList.remove('visible');
+                setTimeout(() => el.classList.add('visible'), 50);
+            });
+        });
+    });
+
+    // ── Fade-up observer ──
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── Inject "Click to open" hint into every card ──
+    document.querySelectorAll('.sop-card').forEach(card => {
+        const hint = document.createElement('div');
+        hint.className = 'open-hint';
+        hint.innerHTML = '<i class="fas fa-arrow-up-right-from-square"></i> Click to open full SOP';
+        card.appendChild(hint);
+    });
+
+    // ── Modal logic ──
+    const modal    = document.getElementById('sopModal');
+    const modalBox = document.getElementById('modalBox');
+    const modalTitle    = document.getElementById('modalTitle');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalIcon     = document.getElementById('modalIcon');
+    const modalSteps    = document.getElementById('modalSteps');
+    const modalStepCount = document.getElementById('modalStepCount');
+
+    function openModal(card) {
+        // Identify category class for colour theming
+        const section = card.closest('.category-section');
+        const catClass = ['win','linux','vmware','aws','gcp','others'].find(c => section.classList.contains(c)) || 'others';
+
+        // Extract data from the card
+        const title    = card.querySelector('h3').textContent;
+        const category = card.querySelector('.sop-category').textContent;
+        const iconHTML = card.querySelector('.sop-icon').innerHTML;
+        const steps    = [...card.querySelectorAll('.sop-step')];
+
+        // Populate modal
+        modalTitle.textContent    = title;
+        modalCategory.textContent = category;
+        modalIcon.innerHTML       = iconHTML;
+
+        // Apply category theme
+        modalBox.className = 'modal-box ' + catClass;
+
+        // Build steps
+        modalSteps.innerHTML = '';
+        steps.forEach((step, i) => {
+            const strong = step.querySelector('strong');
+            const label  = strong ? strong.textContent.replace(':','') : '';
+            const detail = step.innerHTML.replace(/<strong>[^<]*<\/strong>:?\s*/i, '').trim();
+            const li = document.createElement('li');
+            li.className = 'modal-step';
+            li.innerHTML = `
+                <div class="modal-step-num">${i + 1}</div>
+                <div class="modal-step-content">
+                    <strong>${label}</strong>
+                    <span>${detail}</span>
+                </div>`;
+            modalSteps.appendChild(li);
+        });
+
+        modalStepCount.textContent = steps.length;
+
+        // Show modal
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Click on card → open
+    document.querySelectorAll('.sop-card').forEach(card => {
+        card.addEventListener('click', () => openModal(card));
+    });
+
+    // Close button
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+
+    // Click backdrop to close
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+    // Escape key to close
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
